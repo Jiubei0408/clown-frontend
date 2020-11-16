@@ -4,6 +4,7 @@
       :style="{'background-image': `url(${background_image}`}">
     <div class="login-box">
       <el-form
+          class="center"
           style="text-align: right"
           label-width="70px"
           :model="loginForm"
@@ -55,10 +56,11 @@ export default {
 
 <style scoped>
 .login-box {
-  position: relative;
-  left: 60%;
-  top: 20%;
-  width: 500px;
+  position: absolute;
+  right: 15%;
+  top: 30%;
+  width: 400px;
+  height: 200px;
   padding: 20px;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5);
