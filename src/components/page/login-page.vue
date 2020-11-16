@@ -14,7 +14,7 @@
           <el-input v-model="loginForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="username">
-          <el-input v-model="loginForm.username"></el-input>
+          <el-input v-model="loginForm.password"></el-input>
         </el-form-item>
         <el-button type="primary" style="width: 40%" @click="submitLogin">登录</el-button>
       </el-form>
