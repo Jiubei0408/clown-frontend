@@ -26,6 +26,13 @@ export default new Router({
             meta: {
                 title: '登录'
             }
+        }, {
+            path: '/register',
+            name: 'register-page',
+            component: () => import('@/components/page/register-page'),
+            meta: {
+                title: '注册'
+            }
         }, {path: '*', redirect: '/404'}, {
             path: '/404',
             name: 'error404-page',
