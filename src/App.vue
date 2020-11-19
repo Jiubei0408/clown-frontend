@@ -36,6 +36,8 @@ export default {
 
 <style>
 body, html {
+  width: 100%;
+  height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
@@ -48,6 +50,8 @@ body, html {
   text-align: center;
   color: #2c3e50;
   min-width: 800px;
+  height: 100%;
+  width: 100%;
 }
 
 .scroll-bar {
