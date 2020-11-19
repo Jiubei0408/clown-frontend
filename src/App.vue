@@ -56,22 +56,27 @@ body, html {
   overflow: auto;
 }
 
-.horizontal-center {
+.horizontal-center, .horizontal-center > * {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.vertical-center {
+.vertical-center, .vertical-center > * {
   position: relative;
   top: 50%;
   transform: translate(0, -50%);
 }
 
-.center {
+.center, .center > * {
   position: relative;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.fill-background {
+  background-repeat: no-repeat;
+  background-size: 100% 100%
 }
 </style>
