@@ -1,11 +1,12 @@
 <template>
   <div class="page-nav-wrap">
     <div class="page-nav-menu">
-      <el-image
-          src="logo-white.png"
-          class="vertical-center"
-          style="float: left; width: 50px; height: 50px; cursor: pointer"
-          @click="$router.push('/')"/>
+      <div class="vertical-center" style="cursor: pointer" @click="$router.push('/')">
+        <el-image
+            src="logo-white.png"
+            style="float:left; width: 50px; height: 50px"/>
+        <span style="float:left; color: white">Clown游戏社区</span>
+      </div>
       <div class="vertical-center" style="float: left">
         <span class="link" @click="goto('/')">主页</span>
         <span class="link" @click="goto('/bbs')">论坛</span>
