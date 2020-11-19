@@ -6,6 +6,7 @@
         <div ref="pageMainBox">
           <router-view/>
         </div>
+        <page-footer ref="pageFooter"/>
       </div>
     </el-scrollbar>
   </div>
@@ -13,13 +14,14 @@
 
 <script>
 import PageNav from "@/components/page-items/page-nav";
+import PageFooter from "@/components/page-items/page-footer";
 
 export default {
   name: 'app',
-  components: {PageNav},
+  components: {PageFooter, PageNav},
   methods: {
     fixBox() {
-      this.$refs.pageMainBox.style.height = window.outerHeight - this.$refs.pageNav.$el.offsetHeight + 'px'
+      this.$refs.pageMainBox.style.height = window.innerHeight - this.$refs.pageNav.$el.offsetHeight - this.$refs.pageFooter.$el.offsetHeight + 'px'
     }
   },
   mounted() {
