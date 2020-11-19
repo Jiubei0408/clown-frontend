@@ -1,20 +1,20 @@
 <template>
   <div
-      style="width: 100%; height: 100%; background-repeat: no-repeat; background-size: 100% 100%"
+      class="fill-background"
+      style="width: 100%; height: 100%;"
       :style="{'background-image': `url(${background_image}`}">
     <div class="login-box">
       <el-form
-          class="center"
           style="text-align: right"
           label-width="90px"
           :model="loginForm"
           :rules="rules"
           status-icon>
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="loginForm.username"></el-input>
+          <el-input auto-complete="new-password" v-model="loginForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input v-model="loginForm.password" show-password></el-input>
+          <el-input auto-complete="new-password" v-model="loginForm.password" show-password></el-input>
         </el-form-item>
         <el-button
             type="primary"
@@ -65,7 +65,7 @@ export default {
   top: 30%;
   width: 400px;
   height: 200px;
-  padding: 20px;
+  padding: 22px 22px 0;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.5);
   box-shadow: 5px 5px 10px 10px rgba(0, 0, 0, 0.2);
