@@ -50,6 +50,7 @@ body, html {
   text-align: center;
   color: #2c3e50;
   min-width: 800px;
+  min-height: 1000px;
   height: 100%;
   width: 100%;
 }
@@ -62,19 +63,19 @@ body, html {
   overflow: auto;
 }
 
-.horizontal-center, .horizontal-center > * {
+.horizontal-center{
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.vertical-center, .vertical-center > * {
+.vertical-center{
   position: relative;
   top: 50%;
   transform: translate(0, -50%);
 }
 
-.center, .center > * {
+.center{
   position: relative;
   top: 50%;
   left: 50%;
