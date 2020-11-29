@@ -5,6 +5,7 @@
       :style="{'background-image': `url(${background_image}`}">
     <div class="login-box">
       <el-form
+          ref="loginForm"
           style="text-align: right"
           label-width="90px"
           :model="loginForm"
@@ -52,7 +53,10 @@ export default {
   },
   methods: {
     submitLogin() {
-      console.log(this.loginForm)
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) this.$store.commit('login', this.loginForm)
+        else return false
+      })
     }
   }
 }
