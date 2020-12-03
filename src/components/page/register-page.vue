@@ -5,8 +5,7 @@
       :style="{'background-image': `url(${background_image}`}">
     <div class="center register-box">
       <div class="horizontal-center register-form-wrapper" style="width: 50%">
-        <div class="add-avatar horizontal-center"
-             style="margin-bottom: 50px">
+        <div class="add-avatar horizontal-center">
           <i class="el-icon-plus vertical-center"
              style="color: white; font-size: 20px; font-weight: bolder"/>
         </div>
@@ -29,7 +28,19 @@
                 placeholder="重复输入密码"
                 v-model="registerForm.repeat"></el-input>
           </el-form-item>
-          <el-button style="width: 100%; border-radius: 20px" plain>确认注册</el-button>
+          <el-form-item>
+            <el-input
+                auto-complete="new-password"
+                placeholder="昵称"
+                v-model="registerForm.nickname"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-input
+                auto-complete="new-password"
+                placeholder="手机号码"
+                v-model="registerForm.telephone"></el-input>
+          </el-form-item>
+          <el-button style="width: 100%; border-radius: 20px; margin-top: 20px" plain>确认注册</el-button>
         </el-form>
       </div>
     </div>
@@ -45,7 +56,9 @@ export default {
       registerForm: {
         username: '',
         password: '',
-        repeat: ''
+        repeat: '',
+        nickname: '',
+        telephone: ''
       },
     }
   }
@@ -65,16 +78,13 @@ export default {
   padding-top: 50px;
 }
 
-.register-form-wrapper *:not(i) {
-  margin-bottom: 25px;
-}
-
 .add-avatar {
   width: 100px;
   height: 100px;
   background-color: #ffffff66;
   border: #aaaaaa 1px solid;
   border-radius: 50%;
+  margin-bottom: 30px;
   cursor: pointer;
 }
 
