@@ -1,8 +1,7 @@
 <template>
   <div
       class="fill-background"
-      style="width: 100%; height: 100%;"
-      :style="{'background-image': `url(${background_image}`}">
+      :style="wrapStyle">
     <div class="center register-box">
       <div class="horizontal-center register-form-wrapper" style="width: 50%">
         <div class="add-avatar horizontal-center">
@@ -50,15 +49,24 @@
 <script>
 export default {
   name: "register-page",
+  computed: {
+    wrapStyle() {
+      return {
+        backgroundImage: `url(${require('@/assets/register-background.png')}`,
+        minHeight: '900px',
+        height: this.$store.state.mainBoxHeight
+      }
+    }
+  },
   data() {
     return {
-      background_image: require("@/assets/register-background.png"),
       registerForm: {
         username: '',
         password: '',
         repeat: '',
         nickname: '',
-        telephone: ''
+        telephone: '',
+        avatar: ''
       },
     }
   }
@@ -83,7 +91,7 @@ export default {
   height: 100px;
   background-color: #ffffff66;
   border: #aaaaaa 1px solid;
-  border-radius: 50%;
+  border-radius: 20%;
   margin-bottom: 30px;
   cursor: pointer;
 }

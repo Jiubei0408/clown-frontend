@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <div id="app" ref="pageBox">
     <el-scrollbar class="scroll-bar">
       <div id="appBox">
-        <page-nav ref="pageNav"/>
-        <div ref="pageMainBox">
+        <page-nav ref="pageNavBox"/>
+        <div class="page-main-box" ref="pageMainBox">
           <router-view/>
         </div>
-        <page-footer ref="pageFooter"/>
+        <page-footer ref="pageFooterBox"/>
       </div>
     </el-scrollbar>
   </div>
@@ -21,38 +21,42 @@ export default {
   components: {PageFooter, PageNav},
   methods: {
     fixBox() {
-      this.$refs.pageMainBox.style.height = window.innerHeight - this.$refs.pageNav.$el.offsetHeight - this.$refs.pageFooter.$el.offsetHeight + 'px'
+      let clientHeight = window.innerHeight
+      let clientWidth = window.innerWidth
+      let navHeight = this.$refs.pageNavBox.$el.clientHeight
+      let footerHeight = this.$refs.pageFooterBox.$el.clientHeight
+      this.$refs.pageMainBox.style.minHeight = clientHeight - navHeight - footerHeight + 'px'
+      this.$store.commit('saveMainBoxHeight' ,this.$refs.pageMainBox.style.minHeight)
+      this.$refs.pageBox.style.height = clientHeight + 'px'
+      this.$refs.pageBox.style.widows = clientWidth + 'px'
     }
   },
   mounted() {
     this.fixBox()
-    const that = this
-    window.onresize = function () {
-      that.fixBox()
-    }
+    window.onresize = this.fixBox
   }
 }
 </script>
 
 <style>
-body, html {
-  width: 100%;
-  height: 100%;
-  margin: 0;
+* {
   padding: 0;
-  overflow: hidden;
+  margin: 0;
+  border: 0;
+  text-decoration: none;
+  list-style-type: none;
 }
 
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  min-width: 800px;
-  min-height: 1000px;
-  height: 100%;
+  font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+  overflow: hidden;
   width: 100%;
+  min-width: 1000px;
+  text-align: center;
+}
+
+.page-main-box{
+  position: relative;
 }
 
 .scroll-bar {
@@ -60,22 +64,26 @@ body, html {
 }
 
 .el-scrollbar__wrap {
-  overflow: auto;
+  overflow: auto !important;
 }
 
-.horizontal-center{
+.el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
+  overflow: scroll;
+}
+
+.horizontal-center {
   position: relative;
   left: 50%;
   transform: translate(-50%, 0);
 }
 
-.vertical-center{
+.vertical-center {
   position: relative;
   top: 50%;
   transform: translate(0, -50%);
 }
 
-.center{
+.center {
   position: relative;
   top: 50%;
   left: 50%;

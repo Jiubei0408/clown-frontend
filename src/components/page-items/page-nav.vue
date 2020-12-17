@@ -9,19 +9,32 @@
         <span class="vertical-center" style="float:left; color: white">Clown游戏社区</span>
       </div>
       <div class="vertical-center" style="float: left">
-        <span class="link" @click="goto('/')">主页</span>
-        <span class="link" @click="goto('/bbs')">论坛</span>
-        <span class="link" @click="goto('/eval')">测评</span>
-        <span class="link" @click="goto('/info')">资讯</span>
-        <span class="link" @click="goto('/rank')">榜单</span>
+        <span @click="goto('/')">主页</span>
+        <span @click="goto('/bbs')">论坛</span>
+        <span @click="goto('/eval')">测评</span>
+        <span @click="goto('/info')">资讯</span>
+        <span @click="goto('/rank')">榜单</span>
       </div>
-      <div class="vertical-center" style="float: right">
-        <span class="link" @click="goto('/login')">
-          <i class="el-icon-key"/> 登录
-        </span>
-        <span class="link" @click="goto('/register')">
-          <i class="el-icon-user"/> 注册
-        </span>
+      <div class="vertical-center" style="float: right;">
+        <template v-if="!$store.state.user.id">
+          <span @click="goto('/login')">
+            <i class="el-icon-key"/> 登录</span>
+          <span @click="goto('/register')">
+            <i class="el-icon-user"/> 注册</span>
+        </template>
+        <template v-else>
+          <div style="display: flex; align-items: center">
+            <el-image :src="$store.state.user.avatar" class="user-avatar" @click="goto('/profile')">
+              <template slot="error">
+                <div class="default-user" @click="goto('/profile')">
+                  <i class="el-icon-user vertical-center"/>
+                </div>
+              </template>
+            </el-image>
+            <span @click="goto('/profile')">{{ $store.state.user.nickname }}</span>
+            <span @click="$store.commit('logout')"><i class="el-icon-key"/> 登出</span>
+          </div>
+        </template>
       </div>
     </div>
   </div>
@@ -30,11 +43,6 @@
 <script>
 export default {
   name: "page-nav",
-  computed: {
-    defaultActive() {
-      return this.$route.path
-    }
-  },
   methods: {
     goto(url) {
       this.$router.push(url)
@@ -54,7 +62,7 @@ export default {
   background-color: #31393C;
 }
 
-.link {
+.page-nav-menu span, .page-nav-menu p, .page-nav-menu i {
   color: #F8E5C3;
   cursor: pointer;
   font-size: 18px;
@@ -62,5 +70,19 @@ export default {
 
 div span {
   margin: 0 15px;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 20%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/deep/ .default-user {
+  width: 100%;
+  height: 100%;
+  background-color: #aaaaaa;
 }
 </style>

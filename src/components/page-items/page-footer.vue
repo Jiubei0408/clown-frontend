@@ -24,8 +24,6 @@ export default {
 
 .page-footer {
   color: white;
-  width: 100%;
-  height: 100%;
 }
 
 .page-footer p {
