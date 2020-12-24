@@ -2,7 +2,7 @@
   <div class="page-footer-wrap">
     <div class="page-footer center">
       <p>
-        Copyright © 2020-2021 SE-Group G03, All Rights Reserved 法律声明 | 版权所有
+        Copyright © 2020-2021 SE-Group G03, All Rights Reserved
         <br>
         Powered by Jiubei & Bsq & Xiye
       </p>
