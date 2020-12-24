@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const api = 'http://swordandknight.cn:8800'
-const fileHost = 'http://121.40.130.181:5001/upload'
+const fileHost = 'http://121.40.130.181:5001'
 
 let state = {
     page: null,
