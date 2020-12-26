@@ -17,7 +17,7 @@ export default new Router({
             name: 'index-page',
             component: () => import('@/components/page/index-page'),
             meta: {
-                title: '主页'
+                title: '首页'
             }
         }, {
             path: '/login',
@@ -32,6 +32,27 @@ export default new Router({
             component: () => import('@/components/page/register-page'),
             meta: {
                 title: '注册'
+            }
+        }, {
+            path: '/posts/:id',
+            name: 'post-page',
+            component: () => import('@/components/page/post-page'),
+            meta: {
+                title: '帖子'
+            }
+        }, {
+            path: '/review/:id',
+            name: 'review-page',
+            component: () => import('@/components/page/review-page'),
+            meta: {
+                title: '评测'
+            }
+        }, {
+            path: '/information/:id',
+            name: 'information-page',
+            component: () => import('@/components/page/information-page'),
+            meta: {
+                title: '资讯'
             }
         }, {path: '*', redirect: '/404'}, {
             path: '/404',
