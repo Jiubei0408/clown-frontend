@@ -69,20 +69,10 @@ export default {
   data() {
     return {
       currentGameID: '-1',
-      followedGames: [
-        {
-          id: -1,
-          name: '全部'
-        },
-        {
-          id: 1,
-          name: '英雄联盟'
-        },
-        {
-          id: 2,
-          name: '原神'
-        }
-      ],
+      followedGames: [{
+        id: -1,
+        name: '全部'
+      }],
       reviews: [],
       information: [],
       hotPosts: [],
@@ -150,11 +140,29 @@ export default {
       let activeIndex = this.$refs.carousel.activeIndex
       if (id === this.information[activeIndex].id)
         this.$router.push('/information/' + id)
+    },
+    getFollowGames() {
+      this.followedGames = [{
+        id: -1,
+        name: '全部'
+      }]
+      if (this.$store.state.user.id) {
+        this.$http.post(this.$store.state.api + '/user/star', {
+          user_id: this.$store.state.user.id,
+          page_id: 1
+        }).then(resp => {
+          console.log(resp.data.data)
+          for(let game of resp.data.data.game){
+            console.log(game)
+          }
+        })
+      }
     }
   },
   mounted() {
     this.getContent(-1)
     this.getHotPost()
+    this.getFollowGames()
   }
 }
 </script>

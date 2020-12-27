@@ -51,6 +51,7 @@ let mutations = {
         state.user = {}
         state.page.$message.success('登出成功')
         localStorage.removeItem('user')
+        state.page.$router.push('/')
     },
     updateUser(state) {
         if (localStorage.getItem('user')) {

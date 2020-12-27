@@ -34,6 +34,13 @@ export default new Router({
                 title: '注册'
             }
         }, {
+            path: '/profile',
+            name: 'profile-page',
+            component: () => import('@/components/page/profile-page'),
+            meta: {
+                title: '用户信息'
+            }
+        }, {
             path: '/posts/:id',
             name: 'post-page',
             component: () => import('@/components/page/post-page'),
