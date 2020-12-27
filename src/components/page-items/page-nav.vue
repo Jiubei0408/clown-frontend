@@ -10,7 +10,7 @@
       </div>
       <div class="vertical-center" style="float: left">
         <span @click="goto('/')">主页</span>
-        <span @click="goto('/bbs')">论坛</span>
+        <span @click="goto('/board')">论坛</span>
         <span @click="goto('/review')">测评</span>
         <span @click="goto('/info')">资讯</span>
         <span @click="goto('/rank')">榜单</span>

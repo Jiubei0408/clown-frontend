@@ -26,14 +26,18 @@ export default {
       let navHeight = this.$refs.pageNavBox.$el.clientHeight
       let footerHeight = this.$refs.pageFooterBox.$el.clientHeight
       this.$refs.pageMainBox.style.minHeight = clientHeight - navHeight - footerHeight + 'px'
-      this.$store.commit('saveMainBoxHeight' ,this.$refs.pageMainBox.style.minHeight)
+      this.$store.commit('saveMainBoxHeight', this.$refs.pageMainBox.style.minHeight)
       this.$refs.pageBox.style.height = clientHeight + 'px'
       this.$refs.pageBox.style.widows = clientWidth + 'px'
     }
   },
   mounted() {
     this.fixBox()
-    window.onresize = this.fixBox
+    let originOnResize = window.onresize
+    window.onresize = (e) => {
+      if (originOnResize !== null) originOnResize(e)
+      this.fixBox()
+    }
   }
 }
 </script>
@@ -55,7 +59,7 @@ export default {
   text-align: center;
 }
 
-.page-main-box{
+.page-main-box {
   position: relative;
 }
 

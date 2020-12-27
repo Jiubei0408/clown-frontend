@@ -24,7 +24,7 @@
               <p>个性签名<i class="el-icon-s-tools" style="cursor: pointer; margin-left: 5px"
                         @click="modifySignature"/>: {{ information.signature }}</p>
             </div>
-            <div class="avatar">
+            <div class="avatar" @click="modifyAvatar">
               <el-image :src="information.avatar"/>
             </div>
           </div>
@@ -167,6 +167,9 @@ export default {
       })
     },
     modifyPassword() {
+      this.$message.error('施工中')
+    },
+    modifyAvatar() {
       this.$message.error('施工中')
     }
   },

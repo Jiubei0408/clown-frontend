@@ -41,6 +41,20 @@ export default new Router({
                 title: '用户信息'
             }
         }, {
+            path: '/board',
+            name: 'board-main-page',
+            component: () => import('@/components/page/board-main-page'),
+            meta: {
+                title: '论坛主页'
+            }
+        }, {
+            path: '/board/:id',
+            name: 'board-page',
+            component: () => import('@/components/page/board-page'),
+            meta: {
+                title: '论坛'
+            }
+        }, {
             path: '/posts/:id',
             name: 'post-page',
             component: () => import('@/components/page/post-page'),
