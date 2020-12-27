@@ -33,7 +33,7 @@
               <div class="board" v-for="board of boards.get(type.id)" :key="board.board_id"
                    @click="$router.push('/board/'+board.board_id)">
                 <el-image class="board-logo" :src="board.board_logo"/>
-                <p class="board-name"> {{ board.board_name }}</p>
+                <p class="board-name" :title="board.board_name"> {{ board.board_name }}</p>
                 <p class="board-intro"> {{ board.board_introduction }}</p>
               </div>
               <template v-if="!reloading">
@@ -221,6 +221,10 @@ export default {
 }
 
 .board-name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
   text-align: left;
   color: #902525;
   font-size: 20px;
