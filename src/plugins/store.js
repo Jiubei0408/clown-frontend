@@ -22,6 +22,7 @@ let mutations = {
         state.mainBoxHeight = height
     },
     login(state, data) {
+        let username = data.username
         state.page.$http.post(api + '/user/login', {
             username: data.username,
             password: data.password
@@ -32,6 +33,7 @@ let mutations = {
                     state.user = {
                         id: data.data.uid,
                         avatar: data.data.avatar,
+                        username,
                         nickname: data.data.nickname,
                         permission: data.data.permission
                     }

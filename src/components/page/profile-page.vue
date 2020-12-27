@@ -1,10 +1,35 @@
 <template>
   <el-container :style="wrapStyle">
+    <el-dialog title="修改密码" :visible.sync="form.visible" append-to-body>
+      <el-form label-position="left" v-model="form" label-width="120px">
+        <el-form-item label="手机号">
+          <el-input v-model="form.phone"/>
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input v-model="form.password" auto-complete="new-password" show-password/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="initForm">取 消</el-button>
+        <el-button type="primary" @click="modifyPassword">确 定</el-button>
+      </div>
+    </el-dialog>
     <el-col class="wrap-followed" style="width: 30%">
       <p style="font-size: 5vh; line-height: 10vh">关注游戏</p>
       <div style="height: 80%">
-        <div class="followed-game" v-for="i in 5" :key="i">
-          waiting backend
+        <div class="followed-game" v-for="game of followedGames" :key="game.game_id">
+          <div class="vertical-center" style="overflow: hidden">
+            <el-image class="game-logo" :src="game.game_src"/>
+            <div style="float: left">
+              <p style="font-size: 20px; font-weight: bold">{{ game.game_name }}</p>
+              <el-link style="display: block; margin-top: 15px; font-size: 18px" :underline="false"
+                       @click="$router.push('/board/'+game.game_id)">进入论坛
+              </el-link>
+              <el-link style="display: block; margin-top: 15px; font-size: 18px" :underline="false"
+                       @click="$router.push('/game/'+game.game_id)">进入简介
+              </el-link>
+            </div>
+          </div>
         </div>
       </div>
       <el-pagination style="height: 10%"
@@ -13,19 +38,23 @@
                      @current-change="getFollowedGame"/>
     </el-col>
     <el-col>
-      <el-row style="height: 50%; border-bottom: 10px solid #726551">
+      <el-row style="height: 40%; border-bottom: 10px solid #726551">
         <el-col style="width: 86%; height: 100%; background-color: #f5f2eb; padding: 20px">
           <div class="profile-wrap">
             <div style="width: 70%; text-align: left; font-size: 30px">
               <p>用户名: {{ information.username }}</p>
-              <p>昵称<i class="el-icon-s-tools" style="cursor: pointer; margin-left: 5px"
-                      @click="modifyNickname"/>: {{ information.nickname }}</p>
+              <p>昵称: {{ information.nickname }}</p>
               <p>创建时间: {{ information.create_time }}</p>
               <p>个性签名<i class="el-icon-s-tools" style="cursor: pointer; margin-left: 5px"
                         @click="modifySignature"/>: {{ information.signature }}</p>
             </div>
-            <div class="avatar" @click="modifyAvatar">
+            <div class="avatar"
+                 v-loading="uploading"
+                 :element-loading-text="uploadProgress"
+                 element-loading-background="transparent"
+                 @click="modifyAvatar">
               <el-image :src="information.avatar"/>
+              <input id="file" type="file" @change="handleAvatarChange" accept="image/*" hidden @click.stop/>
             </div>
           </div>
         </el-col>
@@ -36,7 +65,7 @@
               <p style="font-size: 30px; margin-top: 10px">个人信息</p>
             </div>
           </div>
-          <div style="height: 33.33%; background-color: #63677a; cursor: pointer" @click="modifyPassword">
+          <div style="height: 33.33%; background-color: #63677a; cursor: pointer" @click="form.visible = true">
             <div class="vertical-center">
               <i class="el-icon-lock" style="font-size: 40px"/>
               <p style="font-size: 30px; margin-top: 10px">修改密码</p>
@@ -50,10 +79,11 @@
           </div>
         </el-col>
       </el-row>
-      <el-row style="height: 50%; background-color: #f5f2eb; padding: 20px">
+      <el-row style="height: 60%; background-color: #f5f2eb; padding: 20px">
         <p style="text-align: left; font-size: 3vh; line-height: 6vh">我的帖子</p>
         <div style="height: 80%">
-          <div class="my-post" v-for="post in myPosts" :key="post.post_id">
+          <div class="my-post" v-for="post in myPosts" :key="post.post_id"
+               @click="$router.push('/posts/' + post.post_id)">
             <el-image :src="post.src" class="post-image"/>
             <div style="width: 100%; margin-left: 20px">
               <div style="display: flex; justify-content: space-between">
@@ -89,13 +119,20 @@ export default {
   },
   data() {
     return {
+      uploading: false,
+      uploadProgress: '0%',
       followedGames: [],
       followedGamesPageID: 1,
       followedGamesMaxPageID: 1,
       myPosts: [],
       myPostsPageID: 1,
       myPostsMaxPageID: 1,
-      information: {}
+      information: {},
+      form: {
+        phone: '',
+        password: '',
+        visible: false
+      }
     }
   },
   methods: {
@@ -111,11 +148,11 @@ export default {
         user_id: this.$store.state.user.id,
         page_id: this.followedGamesPageID
       }).then(resp => {
-        console.log(resp)
+        this.followedGames = resp.data.data.game
+        this.followedGamesMaxPageID = resp.data.data.page_cnt
       })
     },
     getMyPost() {
-      console.log(this.myPostsPageID)
       this.$http.post(this.$store.state.api + '/user/myPost', {
         user_id: this.$store.state.user.id,
         page_id: this.myPostsPageID
@@ -146,32 +183,81 @@ export default {
         })
       })
     },
-    modifyNickname() {
-      this.$prompt('修改昵称', '', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        inputValue: this.information.nickname
-      }).then(({value}) => {
-        this.$message.error('施工中')
-        if (value !== undefined) return value
-        //waiting backend
-        this.$http.post(this.$store.state.api + '/user/modifySignature', {
-          user_id: this.$store.state.user.id,
-          signature: value
-        }).then(resp => {
-          if (resp.data.code === 200) {
-            this.$message.success(resp.data.message)
-            this.information.signature = value
-          } else this.$message.error(resp.data.message)
-        })
-      })
+    initForm() {
+      this.form = {
+        phone: '',
+        password: '',
+        visible: false
+      }
     },
     modifyPassword() {
-      this.$message.error('施工中')
+      if (this.form.password === '') {
+        this.$message.error('新密码不能为空')
+        return
+      }
+      this.$http.post(this.$store.state.api + '/user/changePassword', {
+        username: this.$store.state.user.username,
+        phonenumber: this.form.phone,
+        changed_password: this.form.password
+      }).then(resp => {
+        if (resp.data.code === 200) {
+          this.$message.success(resp.data.message)
+          this.form.visible = false
+        } else this.$message.error(resp.data.message)
+      })
     },
     modifyAvatar() {
-      this.$message.error('施工中')
-    }
+      document.getElementById('file').click()
+    },
+    handleAvatarChange() {
+      let files = document.getElementById('file').files
+      if (files.length === 0) return
+      let file = files[0]
+      if (!file.type.startsWith('image')) {
+        this.$message.error('此文件不是图片')
+        return
+      }
+      if (file.size > 1024 * 1024) {
+        this.$message.error('头像文件不能超过 1M')
+        return
+      }
+      let form = new FormData()
+      form.append('file', file)
+      let request = new XMLHttpRequest()
+      request.open('POST', this.$store.state.fileHost + '/upload')
+      request.timeout = 10000
+      request.ontimeout = () => {
+        request.abort()
+        this.uploading = false
+        this.$message.error('文件传输失败')
+      }
+      this.uploading = true
+      this.uploadProgress = '0%'
+      request.upload.onprogress = (e) => {
+        this.uploadProgress = Math.floor(100.0 * e.loaded / e.total) + '%'
+      }
+      request.onload = (e) => {
+        this.uploading = false
+        if (e.target.status === 200) {
+          let url = JSON.parse(e.target.response).url
+          this.$http.post(this.$store.state.api + '/user/modifyAvatar', {
+            user_id: this.$store.state.user.id,
+            avatar: this.$store.state.fileHost + url
+          }).then(resp => {
+            if (resp.data.code === 200) {
+              this.information.avatar = this.$store.state.fileHost + url
+              this.$store.state.user.avatar = this.$store.state.fileHost + url
+              localStorage.setItem('user', JSON.stringify(this.$store.state.user))
+              this.$message.success('修改成功')
+            } else this.$message.error(resp.data.message)
+          })
+
+        } else {
+          this.$message.error('文件传输失败')
+        }
+      }
+      request.send(form)
+    },
   },
   created() {
     if (!this.$store.state.user.id) {
@@ -197,7 +283,18 @@ export default {
   margin: 20px;
   border: 1px solid gray;
   background-color: #fff0cd;
+  padding: 20px;
+  text-align: left;
+  vertical-align: center;
+  box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.4) 0 2px 6px 2px
+}
+
+.game-logo {
+  width: 10vw;
+  height: 6vw;
+  float: left;
+  margin-right: 15px;
 }
 
 .my-post {
@@ -210,11 +307,12 @@ export default {
   padding: 20px;
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 }
 
 .post-image {
-  width: 200px;
-  height: 100%;
+  width: 5em;
+  height: 5em;
 }
 
 .post-title {
@@ -250,6 +348,11 @@ export default {
   height: 18vw;
   text-align: center;
   cursor: pointer;
+}
+
+.avatar .el-image {
+  width: 100%;
+  height: 100%;
 }
 
 /deep/ .avatar:hover .el-image {

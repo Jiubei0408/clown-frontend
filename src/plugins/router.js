@@ -48,6 +48,13 @@ export default new Router({
                 title: '论坛主页'
             }
         }, {
+            path: '/game/:id',
+            name: 'game-page',
+            component: () => import('@/components/page/game-page'),
+            meta: {
+                title: '游戏'
+            }
+        }, {
             path: '/board/:id',
             name: 'board-page',
             component: () => import('@/components/page/board-page'),
