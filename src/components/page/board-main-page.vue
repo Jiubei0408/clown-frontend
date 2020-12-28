@@ -16,7 +16,7 @@
           <div class="card"></div>
         </el-col>
       </el-row>
-      <el-row :gutter="20" style="margin-top: 20px">
+      <el-row :gutter="20">
         <el-col :span="4">
           <div class="hot-board-wrap card">
             <div style="cursor: pointer" v-for="board in hotBoards" :key="board.board_id"
@@ -250,5 +250,9 @@ export default {
 
 /deep/ .el-col {
   height: 100%;
+}
+
+/deep/ .el-row + .el-row {
+  margin-top: 20px;
 }
 </style>
