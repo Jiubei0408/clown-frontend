@@ -37,7 +37,7 @@
           <p class="review-brief">{{ review.review_brief }}</p>
         </div>
       </div>
-      <el-pagination :current-page="reviewPageID" :page-count="reviewMaxPageID" @current-change="getReview"/>
+      <el-pagination :current-page.sync="reviewPageID" :page-count="reviewMaxPageID" @current-change="getReview"/>
     </div>
   </div>
 </template>

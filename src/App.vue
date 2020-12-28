@@ -4,7 +4,7 @@
       <div id="appBox">
         <page-nav ref="pageNavBox"/>
         <div class="page-main-box" ref="pageMainBox">
-          <router-view/>
+          <router-view v-if="!reloading"/>
         </div>
         <page-footer ref="pageFooterBox"/>
       </div>
@@ -19,6 +19,16 @@ import PageFooter from "@/components/page-items/page-footer";
 export default {
   name: 'app',
   components: {PageFooter, PageNav},
+  provide() {
+    return {
+      reload: this.reload
+    }
+  },
+  data() {
+    return {
+      reloading: false
+    }
+  },
   methods: {
     fixBox() {
       let clientHeight = window.innerHeight
@@ -29,6 +39,12 @@ export default {
       this.$store.commit('saveMainBoxHeight', this.$refs.pageMainBox.style.minHeight)
       this.$refs.pageBox.style.height = clientHeight + 'px'
       this.$refs.pageBox.style.widows = clientWidth + 'px'
+    },
+    reload() {
+      this.reloading = true;
+      this.$nextTick(() => {
+        this.reloading = false
+      })
     }
   },
   mounted() {
@@ -51,11 +67,16 @@ export default {
   list-style-type: none;
 }
 
+body, html {
+  min-width: 1100px;
+  overflow-y: hidden;
+}
+
 #app {
   font-family: "Helvetica Neue", Helvetica, "Hiragino Sans GB", "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   overflow: hidden;
-  width: 100%;
-  min-width: 1000px;
+  width: fit-content;
+  min-width: 100%;
   text-align: center;
 }
 
