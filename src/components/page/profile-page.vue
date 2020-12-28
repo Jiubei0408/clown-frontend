@@ -50,7 +50,13 @@
                  :element-loading-text="uploadProgress"
                  element-loading-background="#000000aa"
                  @click="modifyAvatar">
-              <el-image :src="information.avatar"/>
+              <el-image :src="information.avatar">
+                <template slot="error">
+                  <div class="default-user">
+                    <i class="el-icon-user vertical-center"/>
+                  </div>
+                </template>
+              </el-image>
               <input id="file" type="file" @change="handleAvatarChange" accept="image/*" hidden @click.stop/>
             </div>
           </div>
@@ -295,7 +301,7 @@ export default {
   cursor: pointer;
 }
 
-.followed-game-link:hover{
+.followed-game-link:hover {
   color: #409EFF;
 }
 
@@ -376,5 +382,12 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
+}
+
+/deep/ .default-user {
+  width: 100%;
+  height: 100%;
+  background-color: #dddddd;
+  font-size: 60px;
 }
 </style>
