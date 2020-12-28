@@ -56,9 +56,11 @@ export default {
     }
   },
   created() {
-    window.addEventListener('unhandledrejection', (err) => {
-      err.promise.catch(err => {
-        this.$message.error(err.response.data.error)
+    window.addEventListener('unhandledrejection', (e) => {
+      e.promise.catch(err => {
+        if (err.response && err.response.data)
+          this.$message.error(err.response.data.error)
+        else console.log(err)
       })
     })
   },
