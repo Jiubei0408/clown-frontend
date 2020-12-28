@@ -218,6 +218,7 @@ export default {
 
 .virtual-board {
   opacity: 0;
+  cursor: default;
 }
 
 .board-logo {
