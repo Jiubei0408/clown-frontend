@@ -161,6 +161,7 @@ export default {
       }
       if (this.registerForm.telephone.length !== 11) {
         this.$message.error('手机号长度不正确')
+        return
       }
       this.$http.post(this.$store.state.api + '/user/register', {
         username: this.registerForm.username,
