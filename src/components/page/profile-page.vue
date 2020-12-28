@@ -48,7 +48,7 @@
             <div class="avatar"
                  v-loading="uploading"
                  :element-loading-text="uploadProgress"
-                 element-loading-background="transparent"
+                 element-loading-background="#000000aa"
                  @click="modifyAvatar">
               <el-image :src="information.avatar"/>
               <input id="file" type="file" @change="handleAvatarChange" accept="image/*" hidden @click.stop/>
@@ -110,7 +110,6 @@ export default {
     wrapStyle() {
       return {
         minHeight: '1200px',
-        // minWidth: '1200px',
         height: this.$store.state.mainBoxHeight
       }
     }
