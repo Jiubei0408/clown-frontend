@@ -170,10 +170,15 @@ export default {
       })
     },
     modifySignature() {
-      this.$prompt('修改个性签名', '', {
+      this.$prompt('修改个性签名(最长50个字)', '', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        inputValue: this.information.signature
+        inputValue: this.information.signature,
+        inputType: 'textarea',
+        inputValidator(value) {
+          if (value.length > 50) return '您输入的太长了'
+          return true
+        },
       }).then(({value}) => {
         this.$http.post(this.$store.state.api + '/user/modifySignature', {
           user_id: this.$store.state.user.id,
