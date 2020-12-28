@@ -14,7 +14,7 @@
         <el-button type="primary" @click="modifyPassword">确 定</el-button>
       </div>
     </el-dialog>
-    <el-scrollbar style="width: 30%">
+    <el-scrollbar style="width: 30%" wrap-style="background-color: #d6c8ac">
       <div class="wrap-followed">
         <p style="font-size: 5vh; line-height: 10vh">关注游戏</p>
         <div class="followed-game" v-for="game of followedGames" :key="game.game_id">
@@ -274,7 +274,6 @@ export default {
 .wrap-followed {
   min-height: fit-content;
   height: 100%;
-  background-color: #d6c8ac;
   text-align: center;
 }
 
