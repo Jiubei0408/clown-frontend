@@ -151,9 +151,11 @@ export default {
           user_id: this.$store.state.user.id,
           page_id: 1
         }).then(resp => {
-          console.log(resp.data.data)
           for(let game of resp.data.data.game){
-            console.log(game)
+            this.followedGames.push({
+              id: game.game_id,
+              name: game.game_name
+            })
           }
         })
       }

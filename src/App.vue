@@ -54,6 +54,11 @@ export default {
       if (originOnResize !== null) originOnResize(e)
       this.fixBox()
     }
+  },
+  watch: {
+    $route() {
+      this.reload()
+    }
   }
 }
 </script>
