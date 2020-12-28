@@ -175,6 +175,11 @@ export default {
     }
   },
   created() {
+    if(!this.$store.state.user.id){
+      this.$message.error('请先登录')
+      this.$router.push('/login')
+      return
+    }
     this.getHotBoards()
     this.getMetaData()
     this.getNormalPost()
