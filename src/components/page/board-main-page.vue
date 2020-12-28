@@ -8,8 +8,8 @@
       <el-row :gutter="20" style="height: 100px">
         <el-col :span="4">
           <div class="card" style="display: flex; justify-content: space-around">
-            <img style="width: 50px; height: 50px" src="fire.png"/>
-            <p style="font-size: 30px; font-weight: bold; line-height: 60px">最热论坛</p>
+            <img class="vertical-center fire-img" src="fire.png"/>
+            <p style="font-size: 1.5vw; font-weight: bold; line-height: 60px">最热论坛</p>
           </div>
         </el-col>
         <el-col :span="20">
@@ -158,6 +158,13 @@ export default {
   box-shadow: rgba(0, 0, 0, 0.4) 0 2px 6px 4px;
   padding: 20px;
   box-sizing: border-box;
+}
+
+.fire-img {
+  min-width: 30px;
+  min-height: 30px;
+  width: 3.5vw;
+  height: 3.5vw;
 }
 
 .main-wrap {

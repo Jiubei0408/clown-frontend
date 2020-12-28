@@ -14,30 +14,27 @@
         <el-button type="primary" @click="modifyPassword">确 定</el-button>
       </div>
     </el-dialog>
-    <el-col class="wrap-followed" style="width: 30%">
-      <p style="font-size: 5vh; line-height: 10vh">关注游戏</p>
-      <div style="height: 80%">
+    <el-scrollbar style="width: 30%">
+      <div class="wrap-followed">
+        <p style="font-size: 5vh; line-height: 10vh">关注游戏</p>
         <div class="followed-game" v-for="game of followedGames" :key="game.game_id">
-          <div class="vertical-center" style="overflow: hidden">
-            <el-image class="game-logo" :src="game.game_src"/>
-            <div style="float: left">
-              <p style="font-size: 20px; font-weight: bold">{{ game.game_name }}</p>
-              <el-link style="display: block; margin-top: 15px; font-size: 18px" :underline="false"
-                       @click="$router.push('/board/'+game.game_id)">进入论坛
-              </el-link>
-              <el-link style="display: block; margin-top: 15px; font-size: 18px" :underline="false"
-                       @click="$router.push('/game/'+game.game_id)">进入简介
-              </el-link>
-            </div>
+          <el-image class="game-logo" :src="game.game_src"/>
+          <div style="text-align: center">
+            <p style="font-size: 20px; font-weight: bold">{{ game.game_name }}</p>
+            <p class="horizontal-center followed-game-link" :underline="false"
+               @click="$router.push('/board/'+game.game_id)">进入论坛
+            </p>
+            <p class="horizontal-center followed-game-link" :underline="false"
+               @click="$router.push('/game/'+game.game_id)">进入简介
+            </p>
           </div>
         </div>
+        <el-pagination :current-page.sync="followedGamesPageID"
+                       :page-count="followedGamesMaxPageID"
+                       @current-change="getFollowedGame"/>
       </div>
-      <el-pagination style="height: 10%"
-                     :current-page.sync="followedGamesPageID"
-                     :page-count="followedGamesMaxPageID"
-                     @current-change="getFollowedGame"/>
-    </el-col>
-    <el-col>
+    </el-scrollbar>
+    <el-col style="border-left: 10px solid #726551">
       <el-row style="height: 40%; border-bottom: 10px solid #726551">
         <el-col style="width: 86%; height: 100%; background-color: #f5f2eb; padding: 20px">
           <div class="profile-wrap">
@@ -113,6 +110,7 @@ export default {
     wrapStyle() {
       return {
         minHeight: '1200px',
+        // minWidth: '1200px',
         height: this.$store.state.mainBoxHeight
       }
     }
@@ -274,27 +272,38 @@ export default {
 
 <style scoped>
 .wrap-followed {
+  min-height: fit-content;
+  height: 100%;
   background-color: #d6c8ac;
-  border-right: 10px solid #726551;
+  text-align: center;
 }
 
 .followed-game {
-  height: calc(20% - 25px);
+  height: fit-content;
   margin: 20px;
   border: 1px solid gray;
   background-color: #fff0cd;
   padding: 20px;
   text-align: left;
-  vertical-align: center;
   box-sizing: border-box;
   box-shadow: rgba(0, 0, 0, 0.4) 0 2px 6px 2px
 }
 
+.followed-game-link {
+  display: block;
+  width: fit-content;
+  margin-top: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.followed-game-link:hover{
+  color: #409EFF;
+}
+
 .game-logo {
-  width: 10vw;
-  height: 6vw;
-  float: left;
-  margin-right: 15px;
+  width: 100%;
+  height: 50%;
 }
 
 .my-post {
