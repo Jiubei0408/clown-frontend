@@ -55,6 +55,13 @@ export default {
       this.fixBox()
     }
   },
+  created() {
+    window.addEventListener('unhandledrejection', (err) => {
+      err.promise.catch(err => {
+        this.$message.error(err.response.data.error)
+      })
+    })
+  },
   watch: {
     $route() {
       this.reload()
