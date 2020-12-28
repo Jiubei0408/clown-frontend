@@ -51,7 +51,7 @@
             </div>
             <div style="margin-left: 20px">
               <div class="hot-post-game-name">
-                <div class="point"/>
+                <div class="circle point"/>
                 {{ post.game_name }}
               </div>
               <div class="hot-post-title">{{ post.post_title }}</div>
@@ -249,7 +249,6 @@ export default {
   height: 10px;
   margin-right: 5px;
   border: 1px solid lightgray;
-  border-radius: 50%;
   background-color: #f8a165;
 }
 

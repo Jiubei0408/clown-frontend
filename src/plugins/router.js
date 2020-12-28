@@ -48,6 +48,13 @@ export default new Router({
                 title: '论坛主页'
             }
         }, {
+            path: '/review',
+            name: 'review-main-page',
+            component: () => import('@/components/page/review-main-page'),
+            meta: {
+                title: '测评主页'
+            }
+        }, {
             path: '/game/:id',
             name: 'game-page',
             component: () => import('@/components/page/game-page'),
