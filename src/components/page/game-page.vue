@@ -13,14 +13,14 @@
         <h1>评价</h1>
         <div style="display: flex">
           <el-popover placement="top" trigger="hover">
-            <el-rate v-model="vote" show-score score-template="{value}.0"/>
+            <el-rate v-model="vote" show-score :score-template="vote.toFixed(1)"/>
             <el-button style="float: right; margin-top: 10px"
                        size="mini" type="primary"
                        @click="submitVote">确定
             </el-button>
             <div class="vote" slot="reference">
               <div class="vertical-center">
-                <p>{{ game.game_avg_score }}</p>
+                <p>{{ game.game_avg_score ? game.game_avg_score.toFixed(1) : '' }}</p>
                 <p style="font-size: 15px; margin-top: 15px">{{ game.game_score_cnt }}人参与评分</p>
               </div>
             </div>
