@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from '@/App.vue'
 import '@/plugins/element'
 import router from '@/plugins/router'
+import '@/plugins/mavon-editor'
 import axios from 'axios'
 import store from "@/plugins/store";
 
