@@ -21,24 +21,28 @@
             <el-input
                 auto-complete="new-password"
                 placeholder="用户名"
+                maxlength="16"
                 v-model="registerForm.username"/>
           </el-form-item>
           <el-form-item>
             <el-input
                 auto-complete="new-password"
                 placeholder="密码"
+                maxlength="16"
                 v-model="registerForm.password" show-password/>
           </el-form-item>
           <el-form-item>
             <el-input
                 auto-complete="new-password"
                 placeholder="重复输入密码"
+                maxlength="16"
                 v-model="registerForm.repeat" show-password/>
           </el-form-item>
           <el-form-item>
             <el-input
                 auto-complete="new-password"
                 placeholder="昵称"
+                maxlength="8"
                 v-model="registerForm.nickname"/>
           </el-form-item>
           <el-form-item>
@@ -143,12 +147,29 @@ export default {
         this.$message.error('用户名不能为空')
         return
       }
+      if (this.registerForm.username.length > 16) {
+        this.$message.error('用户名不能超过16个字符')
+        return
+      }
+      let reg = /[^0-9a-zA-Z]/g
+      if (this.registerForm.username.match(reg)) {
+        this.$message.error('用户名只能是数字或者字母')
+        return
+      }
       if (this.registerForm.nickname === '') {
         this.$message.error('昵称不能为空')
         return
       }
+      if (this.registerForm.nickname.length > 8) {
+        this.$message.error('昵称不能超过8个字符')
+        return
+      }
       if (this.registerForm.password === '') {
         this.$message.error('密码不能为空')
+        return
+      }
+      if (this.registerForm.password.length > 16) {
+        this.$message.error('密码不能超过16个字符')
         return
       }
       if (this.registerForm.repeat !== this.registerForm.password) {
@@ -173,7 +194,7 @@ export default {
         if (resp.data.code === 200) {
           this.$message.success(resp.data.message)
           this.$router.push('/login')
-        }else{
+        } else {
           this.$message.error(resp.data.message)
         }
       })
