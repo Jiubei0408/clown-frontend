@@ -170,8 +170,8 @@ export default {
 }
 
 .game-image {
-  width: 400px;
-  height: 200px;
+  width: 700px;
+  height: 350px;
 }
 
 .title {

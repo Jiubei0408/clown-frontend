@@ -6,18 +6,18 @@
     </div>
     <div class="main-wrap" :style="wrapStyle">
       <el-row :gutter="20" style="height: 100px">
-        <el-col :span="4">
+        <el-col style="width: 300px">
           <div class="card" style="display: flex; justify-content: space-around">
             <img class="vertical-center fire-img" src="fire.png"/>
-            <p style="font-size: 1.5vw; font-weight: bold; line-height: 60px">最热论坛</p>
+            <p style="font-size: 40px; font-weight: bold; line-height: 60px">最热论坛</p>
           </div>
         </el-col>
-        <el-col :span="20">
+        <el-col style="width: calc(100% - 300px)">
           <div class="card"></div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="4">
+        <el-col style="width: 300px">
           <div class="hot-board-wrap card">
             <div style="cursor: pointer" v-for="board in hotBoards" :key="board.board_id"
                  @click="$router.push('/board/'+board.board_id)">
@@ -26,7 +26,7 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="20">
+        <el-col style="width: calc(100% - 300px)">
           <div class="card board-type" v-for="type of boardTypes" :key="type.id">
             <p class="board-type-title">{{ type.type }}专区</p>
             <div :id="'boards-'+type.id" class="boards">
@@ -160,10 +160,8 @@ export default {
 }
 
 .fire-img {
-  min-width: 30px;
-  min-height: 30px;
-  width: 3.5vw;
-  height: 3.5vw;
+  width: 60px;
+  height: 60px;
 }
 
 .main-wrap {
