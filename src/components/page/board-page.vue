@@ -66,7 +66,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table class="post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
+            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
                       :data="distillated_posts">
               <el-table-column label="精华帖子" width="700px" prop="post_title">
                 <template slot-scope="scope">
@@ -91,7 +91,7 @@
             </el-table>
           </el-row>
           <el-row>
-            <el-table class="post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
+            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
                       :data="posts">
               <el-table-column label="交流专区" prop="post_title" width="700px">
                 <template slot-scope="scope">
@@ -321,6 +321,7 @@ export default {
 }
 
 .post-table {
+  width: 1200px;
   background-color: transparent;
 }
 
