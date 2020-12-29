@@ -68,33 +68,51 @@
           <el-row>
             <el-table class="post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
                       :data="distillated_posts">
-              <el-table-column label="精华帖子" prop="post_title">
+              <el-table-column label="精华帖子" width="700px" prop="post_title">
                 <template slot-scope="scope">
                   <el-link @click="$router.push('/posts/' + scope.row.post_id)">
                     {{ scope.row.post_title }}
                   </el-link>
                 </template>
               </el-table-column>
-              <el-table-column label="发表人" prop="post_author"/>
-              <el-table-column label="发表时间" prop="release_time"/>
-              <el-table-column label="最后回复者" prop="last_comment_user_nickname"/>
-              <el-table-column label="最后回复时间" prop="last_comment_time"/>
+              <el-table-column label="发表" width="250px">
+                <template slot-scope="scope">
+                  {{ scope.row.post_author }} {{ scope.row.release_time }}
+                </template>
+              </el-table-column>
+              <el-table-column label="最后回复" width="250px">
+                <template slot-scope="scope">
+                  {{ scope.row.last_comment_user_nickname }}
+                  <template v-if="scope.row.last_comment_time !== '暂无人评论'">
+                    {{ scope.row.last_comment_time }}
+                  </template>
+                </template>
+              </el-table-column>
             </el-table>
           </el-row>
           <el-row>
             <el-table class="post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
                       :data="posts">
-              <el-table-column label="交流专区" prop="post_title">
+              <el-table-column label="交流专区" prop="post_title" width="700px">
                 <template slot-scope="scope">
                   <el-link @click="$router.push('/posts/' + scope.row.post_id)">
                     {{ scope.row.post_title }}
                   </el-link>
                 </template>
               </el-table-column>
-              <el-table-column prop="post_author"/>
-              <el-table-column prop="release_time"/>
-              <el-table-column prop="last_comment_user_nickname"/>
-              <el-table-column prop="last_comment_time"/>
+              <el-table-column label="发表" width="250px">
+                <template slot-scope="scope">
+                  {{ scope.row.post_author }} {{ scope.row.release_time }}
+                </template>
+              </el-table-column>
+              <el-table-column label="最后回复" width="250px">
+                <template slot-scope="scope">
+                  {{ scope.row.last_comment_user_nickname }}
+                  <template v-if="scope.row.last_comment_time !== '暂无人评论'">
+                    {{ scope.row.last_comment_time }}
+                  </template>
+                </template>
+              </el-table-column>
             </el-table>
             <el-pagination style="margin-top: 20px" background :current-page.sync="postPageID"
                            :page-count="postMaxPageID"/>
@@ -175,7 +193,7 @@ export default {
     }
   },
   created() {
-    if(!this.$store.state.user.id){
+    if (!this.$store.state.user.id) {
       this.$message.error('请先登录')
       this.$router.push('/login')
       return
