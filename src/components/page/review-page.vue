@@ -63,8 +63,8 @@ export default {
 
 .rate {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 50px;
+  left: 850px;
   width: 100px;
   height: 100px;
   line-height: 100px;
