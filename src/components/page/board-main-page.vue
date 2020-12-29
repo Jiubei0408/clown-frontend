@@ -54,7 +54,6 @@ export default {
     wrapStyle() {
       return {
         minHeight: `calc(${this.$store.state.mainBoxHeight} - 150px`,
-        height: 'fit-content'
       }
     }
   },
@@ -169,7 +168,7 @@ export default {
 
 .main-wrap {
   width: 100%;
-  height: 500px;
+  height: fit-content;
   padding: 20px;
   background-color: #1f1d33;
   box-sizing: border-box;
