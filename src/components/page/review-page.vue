@@ -75,8 +75,10 @@ export default {
 }
 
 .game-name {
+  color: red;
+  width: fit-content;
   font-size: 20px;
-  text-decoration: underline;
+  border-bottom: 1px solid;
 }
 
 .title {

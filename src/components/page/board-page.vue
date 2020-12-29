@@ -13,10 +13,7 @@
           </div>
         </el-col>
         <el-col :span="20">
-          <div class="card">
-            <el-input class="search-input"></el-input>
-            <el-button @click="$message.error('施工中')">搜索</el-button>
-          </div>
+          <div class="card"/>
         </el-col>
       </el-row>
       <el-row :gutter="20">
@@ -66,7 +63,8 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
+            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row"
+                      row-class-name="post-table-row"
                       :data="distillated_posts">
               <el-table-column label="精华帖子" width="700px" prop="post_title">
                 <template slot-scope="scope">
@@ -91,7 +89,8 @@
             </el-table>
           </el-row>
           <el-row>
-            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row" row-class-name="post-table-row"
+            <el-table class="horizontal-center post-table" header-row-class-name="post-table-row"
+                      row-class-name="post-table-row"
                       :data="posts">
               <el-table-column label="交流专区" prop="post_title" width="700px">
                 <template slot-scope="scope">
