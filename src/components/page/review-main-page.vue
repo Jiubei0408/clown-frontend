@@ -13,7 +13,8 @@
     <div class="main-wrap">
       <div class="review-wrap" v-for="review of reviews" :key="review.review_id">
         <div class="horizontal-center" style="width: fit-content; overflow: hidden">
-          <el-image class="review-image" :src="review.review_enter_src"/>
+          <el-image class="review-image" :src="review.review_enter_src"
+                    @click="$router.push('/review/' + review.review_id)"/>
           <div style="float: left; margin-left: 100px">
             <div style="display: flex">
               <el-image style="width: 80px; height: 80px" src="logo-game.png"/>
@@ -32,7 +33,7 @@
         <div class="brief-wrap">
           <p>{{ getTimeStr(review.review_length) }}</p>
           <div class="circle" style="width: 60px; height: 60px; background-color: #c03838">
-            <p style="line-height: 60px; color: white">{{ review.review_score }}</p>
+            <p style="line-height: 60px; color: white">{{ review.review_score.toFixed(1) }}</p>
           </div>
           <p class="review-brief">{{ review.review_brief }}</p>
         </div>
@@ -104,8 +105,9 @@ export default {
 
 .review-image {
   float: left;
-  width: 480px;
-  height: 270px;
+  width: 640px;
+  height: 360px;
+  cursor: pointer;
 }
 
 .review-game-name {
@@ -139,8 +141,10 @@ export default {
 
 .release-date {
   position: absolute;
-  top: 270px;
-  transform: translate(0, -100%);
+  bottom: 0;
+  right: 0;
+  font-size: 20px;
+  color: red;
 }
 
 .brief-wrap {
@@ -149,7 +153,7 @@ export default {
   width: 100%;
   height: 70px;
   background-color: #030303;
-  margin-top: 30px;
+  margin-top: 10px;
   color: #dac296;
   padding: 0 50px;
   font-size: 20px;
