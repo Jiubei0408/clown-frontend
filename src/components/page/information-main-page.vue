@@ -9,7 +9,7 @@
                      layout="prev, pager, next"
                      :current-page.sync="gamePageID" :page-count="gameMaxPageID"/>
     </div>
-    <div class="main-wrap" v-loading="loading">
+    <div class="main-wrap" :style="{minHeight: $store.state.mainBoxHeight}" v-loading="loading">
       <el-carousel ref="carousel" type="card" class="horizontal-center carousel" height="20vw">
         <el-carousel-item v-for="info of information.slice(0, 5)" :key="info.id">
           <div @click="handleCarouselClick(info.information_id)">
@@ -18,7 +18,7 @@
           </div>
         </el-carousel-item>
       </el-carousel>
-      <div class="infinite-list horizontal-center" style="overflow: auto; width: 80%"
+      <div class="infinite-list horizontal-center" style="overflow: auto; width: 80%; min-height: 100%;"
            v-infinite-scroll="loadMore" infinite-scroll-immediate="false"
            infinite-scroll-disabled="!hasMore()">
         <div class="infinite-list-item info-wrap"
@@ -31,8 +31,10 @@
             <p class="info-time"> {{ info.release_date }}</p>
           </div>
         </div>
-        <p v-if="loading">加载中...</p>
-        <p v-if="!hasMore">没有更多了</p>
+        <div style="margin-top: 20px">
+          <p v-if="loading">加载中...</p>
+          <p v-if="!hasMore">没有更多了</p>
+        </div>
       </div>
     </div>
   </div>
