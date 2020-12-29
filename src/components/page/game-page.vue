@@ -60,7 +60,7 @@
         </div>
       </div>
       <div class="meta-content">
-        <el-tag style="margin-left: 10px"
+        <el-tag style="margin-right: 10px"
                 v-for="tag of game.game_tag" :key="tag">
           {{ tag }}
         </el-tag>
