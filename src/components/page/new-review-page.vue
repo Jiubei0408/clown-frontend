@@ -69,6 +69,11 @@ export default {
           required: true,
           message: '请填写评测简介',
           trigger: 'blur'
+        }],
+        game_id: [{
+          required: true,
+          message: '请选择游戏',
+          trigger: 'blur'
         }]
       },
       editorToolbar: {
@@ -160,10 +165,6 @@ export default {
       this.$refs.form.validate((valid) => {
         if (!valid) {
           this.$message.error('请完善信息')
-          return false
-        }
-        if (this.form.game_id === '') {
-          this.$message.error('请选择游戏')
           return false
         }
         if (this.form.review_src === '') {
