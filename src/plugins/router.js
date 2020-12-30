@@ -55,6 +55,13 @@ export default new Router({
                 title: '测评主页'
             }
         }, {
+            path: '/post-review',
+            name: 'post-review-page',
+            component: () => import('@/components/page/post-review-page'),
+            meta: {
+                title: '发表评测'
+            }
+        }, {
             path: '/information',
             name: 'information-main-page',
             component: () => import('@/components/page/information-main-page'),
@@ -104,5 +111,5 @@ export default new Router({
                 title: '错误'
             }
         }
-    ],
+    ]
 })

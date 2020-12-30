@@ -1,6 +1,6 @@
 <template>
   <div id="app" ref="pageBox">
-    <el-scrollbar class="scroll-bar">
+    <el-scrollbar ref="scrollbar" class="scroll-bar">
       <div id="appBox">
         <page-nav ref="pageNavBox"/>
         <div class="page-main-box" ref="pageMainBox">
@@ -21,7 +21,8 @@ export default {
   components: {PageFooter, PageNav},
   provide() {
     return {
-      reload: this.reload
+      reload: this.reload,
+      scrollToTop: this.scrollToTop
     }
   },
   data() {
@@ -45,6 +46,10 @@ export default {
       this.$nextTick(() => {
         this.reloading = false
       })
+    },
+    scrollToTop() {
+      window.scrollTo({behavior: 'smooth', top: 0})
+      this.$refs.scrollbar.$refs['wrap'].scrollTo({behavior: 'smooth', top: 0})
     }
   },
   mounted() {
@@ -67,6 +72,7 @@ export default {
   watch: {
     $route() {
       this.reload()
+      this.scrollToTop()
     }
   }
 }

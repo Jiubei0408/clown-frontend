@@ -2,7 +2,7 @@
   <div style="min-width: 1000px">
     <div class="wrap-add-review"
          v-if="this.$store.state.user.permission === 1"
-         @click="$message.error('施工中')">
+         @click="$router.push('/post-review')">
       <el-image style="width: 50px; height: 50px" src="logo-pencil.png"/>
       <p style="margin-left: 10px">发表测评</p>
     </div>
@@ -46,6 +46,7 @@
 <script>
 export default {
   name: "review-main-page",
+  inject: ['scrollToTop'],
   data() {
     return {
       reviews: [],
@@ -60,6 +61,7 @@ export default {
       }).then(resp => {
         this.reviews = resp.data.data.review
         this.reviewMaxPageID = resp.data.data.page_cnt
+        this.scrollToTop()
       })
     },
     getTimeStr(minutes) {
