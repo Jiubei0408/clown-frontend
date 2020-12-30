@@ -42,11 +42,6 @@ export default {
           message: '请输入评测标题',
           trigger: 'blur'
         }],
-        post_brief: [{
-          required: true,
-          message: '请填写评测简介',
-          trigger: 'blur'
-        }],
         post_type_id: [{
           required: true,
           message: '请选择帖子类型'
