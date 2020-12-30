@@ -113,6 +113,10 @@ body, html {
   overflow: auto !important;
 }
 
+.el-scrollbar__bar {
+  z-index: 100000 !important;
+}
+
 .el-select-dropdown .el-scrollbar .el-scrollbar__wrap {
   overflow: scroll;
 }
