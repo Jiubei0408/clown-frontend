@@ -1,44 +1,24 @@
 <template>
   <div class="main-wrap">
-    <h1>发表评测</h1>
+    <h1>发布帖子</h1>
     <div style="display: flex; justify-content: space-around; align-items: center; height: fit-content">
       <div style="width: 500px; height: fit-content">
         <el-form ref="form" label-width="130px" label-position="left"
                  :model="form" :rules="rules">
-          <el-form-item label="测评标题" prop="review_title">
-            <el-input v-model="form.review_title"/>
+          <el-form-item label="帖子标题" prop="post_title">
+            <el-input v-model="form.post_title"/>
           </el-form-item>
-          <el-form-item label="游戏名称" prop="game_id">
-            <el-select v-model="form.game_id">
-              <el-option v-for="game in games" :key="game.game_id" :label="game.game_name" :value="game.game_id"/>
+          <el-form-item label="帖子类型" prop="post_type_id">
+            <el-select v-model="form.post_type_id">
+              <el-option v-for="type in post_types" :key="type.post_type_id" :label="type.post_type_name"
+                         :value="type.post_type_id"/>
             </el-select>
-          </el-form-item>
-          <el-form-item label="评分" prop="review_score">
-            <div style="display: flex; align-items: center; height: 40px">
-              <el-rate v-model="form.review_score"/>
-            </div>
-          </el-form-item>
-          <el-form-item label="游戏时长（分钟）" prop="review_length">
-            <el-input-number v-model="form.review_length"/>
-          </el-form-item>
-          <el-form-item label="评测简介" prop="review_brief">
-            <el-input v-model="form.review_brief" type="textarea"/>
           </el-form-item>
         </el-form>
       </div>
-      <el-upload
-          class="uploader"
-          :action="this.$store.state.fileHost + '/upload'"
-          :show-file-list="false"
-          accept="image/*"
-          :on-success="handleUploadSuccess"
-          :before-upload="handleBeforeUpload">
-        <img v-if="form.review_src" :src="form.review_src" class="image">
-        <i v-else class="el-icon-plus"></i>
-      </el-upload>
     </div>
-    <mavon-editor ref="editor" v-model="form.release_content" :autofocus="false" class="editor"
-                  :tabSize="2" placeholder="评测内容" :toolbars="editorToolbar"
+    <mavon-editor ref="editor" v-model="form.post_content" :autofocus="false" class="editor"
+                  :tabSize="2" placeholder="帖子内容" :toolbars="editorToolbar"
                   @imgAdd="uploadImage"/>
     <el-button style="width: 500px" type="primary" round @click="submitForm">提交</el-button>
   </div>
@@ -46,29 +26,34 @@
 
 <script>
 export default {
-  name: "post-review-page",
+  name: "new-post-page",
   data() {
     return {
       form: {
-        game_id: '',
-        review_title: '',
-        review_src: '',
-        review_score: 1,
-        release_content: '',
-        review_brief: '',
-        review_length: 0,
+        board_id: parseInt(this.$route.params.id),
+        post_type_id: '',
+        post_title: '',
+        post_content: '',
         user_id: this.$store.state.user.id
       },
       rules: {
-        review_title: [{
+        post_title: [{
           required: true,
           message: '请输入评测标题',
           trigger: 'blur'
         }],
-        review_brief: [{
+        post_brief: [{
           required: true,
           message: '请填写评测简介',
           trigger: 'blur'
+        }],
+        post_type_id: [{
+          required: true,
+          message: '请选择帖子类型'
+        }],
+        post_content: [{
+          required: true,
+          message: '请输入帖子内容'
         }]
       },
       editorToolbar: {
@@ -104,16 +89,16 @@ export default {
         alignright: true, // 右对齐
         /* 2.2.1 */
         subfield: true, // 单双栏模式
-        preview: true, // 预览
+        ppost: true, // 预览
       },
-      games: []
+      post_types: []
     }
   },
   methods: {
-    getAllGames() {
-      this.$http.post(this.$store.state.api + '/review/getAllGame')
+    getAllTypes() {
+      this.$http.post(this.$store.state.api + '/board/getPostType')
           .then(resp => {
-            this.games = resp.data.data
+            this.post_types = resp.data.data.post_type
           })
     },
     delEditorImage(pos) {
@@ -162,25 +147,17 @@ export default {
           this.$message.error('请完善信息')
           return false
         }
-        if (this.form.game_id === '') {
-          this.$message.error('请选择游戏')
-          return false
-        }
-        if (this.form.review_src === '') {
-          this.$message.error('请上传评测图片')
-          return false
-        }
-        this.$http.post(this.$store.state.api + '/review/postReview', this.form)
+        this.$http.post(this.$store.state.api + '/board/submitPost', this.form)
             .then(resp => {
               if (resp.data.code === 200) {
                 this.$message.success('发表成功')
-                this.$router.push('/review')
+                this.$router.push('/board/' + this.$route.params.id)
               } else this.$message.error(resp.data.message)
             })
       })
     },
     handleUploadSuccess(response) {
-      this.form.review_src = this.$store.state.fileHost + response.url
+      this.form.post_src = this.$store.state.fileHost + response.url
     },
     handleBeforeUpload(file) {
       if (file.size > 1024 * 1024) {
@@ -195,7 +172,7 @@ export default {
       this.$router.push('/login')
       return
     }
-    this.getAllGames()
+    this.getAllTypes()
   }
 }
 </script>
