@@ -9,7 +9,7 @@
             <el-input v-model="form.review_title"/>
           </el-form-item>
           <el-form-item label="游戏名称" prop="game_id">
-            <el-select v-model="form.game_id">
+            <el-select v-model="form.game_id" filterable>
               <el-option v-for="game in games" :key="game.game_id" :label="game.game_name" :value="game.game_id"/>
             </el-select>
           </el-form-item>
