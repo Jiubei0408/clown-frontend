@@ -86,7 +86,7 @@
         <p style="text-align: left; font-size: 3vh; line-height: 6vh">我的帖子</p>
         <div style="height: 80%">
           <div class="my-post" v-for="post in myPosts" :key="post.post_id"
-               @click="$router.push('/posts/' + post.post_id)">
+               @click="$router.push('/posts/'+post.post_id+'/1')">
             <el-image :src="post.src" class="post-image"/>
             <div style="width: 100%; margin-left: 20px">
               <div style="display: flex; justify-content: space-between">

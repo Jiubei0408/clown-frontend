@@ -97,7 +97,7 @@ export default new Router({
                 title: '发表帖子'
             }
         }, {
-            path: '/posts/:id',
+            path: '/posts/:id/:page',
             name: 'post-page',
             component: () => import('@/components/page/post-page'),
             meta: {

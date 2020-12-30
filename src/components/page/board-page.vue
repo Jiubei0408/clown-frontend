@@ -55,7 +55,7 @@
                 <div class="hot-post-wrap">
                   <p class="horizontal-center post-link"
                      v-for="hotPost in hot_posts" :key="hotPost.post_id"
-                     @click="$router.push('/posts/'+hotPost.post_id)">
+                     @click="$router.push('/posts/'+hotPost.post_id+'/1')">
                     {{ hotPost.post_title }}
                   </p>
                 </div>
@@ -68,7 +68,7 @@
                       :data="distillated_posts">
               <el-table-column label="精华帖子" width="700px" prop="post_title">
                 <template slot-scope="scope">
-                  <el-link @click="$router.push('/posts/' + scope.row.post_id)">
+                  <el-link @click="$router.push('/posts/' + scope.row.post_id +'/1')">
                     {{ scope.row.post_title }}
                   </el-link>
                 </template>
@@ -94,7 +94,7 @@
                       :data="posts">
               <el-table-column label="交流专区" prop="post_title" width="700px">
                 <template slot-scope="scope">
-                  <el-link @click="$router.push('/posts/' + scope.row.post_id)">
+                  <el-link @click="$router.push('/posts/' + scope.row.post_id+'/1')">
                     {{ scope.row.post_title }}
                   </el-link>
                 </template>
