@@ -73,6 +73,7 @@ export default {
     $route() {
       this.reload()
       this.scrollToTop()
+      document.title = this.$route.meta.title
     }
   }
 }
