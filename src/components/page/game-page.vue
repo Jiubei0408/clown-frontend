@@ -64,7 +64,7 @@
                 v-for="tag of game.game_tag" :key="tag">
           {{ tag }}
         </el-tag>
-        <p>{{ game.game_meta }}</p>
+        <p v-html="toHTML(game.game_meta)"></p>
       </div>
     </div>
   </div>
@@ -84,8 +84,9 @@ export default {
   },
   methods: {
     toHTML(str) {
-      if (typeof str === 'string')
-        return str.replace(/\r\n/g, "<br/>")
+      if (typeof str === 'string'){
+        console.log(str)
+        return str.replace(/[\r\n]/g, "<br/>")}
       return ''
     },
     getData() {
