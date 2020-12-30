@@ -113,8 +113,14 @@
                 </template>
               </el-table-column>
             </el-table>
-            <el-pagination style="margin-top: 20px" background :current-page.sync="postPageID"
-                           :page-count="postMaxPageID"/>
+            <div class="horizontal-center" style="width: 1200px; overflow: hidden; margin-top: 20px;">
+              <el-pagination style="width: fit-content; float: left" background
+                             :current-page.sync="postPageID" :page-count="postMaxPageID"/>
+              <div class="new-post" style="float: right"
+                   @click="$router.push('/new-post/'+$route.params.id)">
+                发布新帖
+              </div>
+            </div>
           </el-row>
         </el-col>
       </el-row>
@@ -327,6 +333,17 @@ export default {
   content: none;
 }
 
+.new-post {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 30px;
+  border-radius: 10px;
+  background-color: #ecdbbc;
+  cursor: pointer;
+}
+
 /deep/ .post-table-row, /deep/ .post-table-row th, /deep/ .post-table-row td {
   background-color: transparent;
   border: none;
@@ -369,7 +386,7 @@ export default {
   background: #ffefd4 !important;
 }
 
-/deep/ .el-pagination__jump{
+/deep/ .el-pagination__jump {
   color: #ecdbbc;
 }
 

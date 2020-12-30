@@ -55,9 +55,9 @@ export default new Router({
                 title: '测评主页'
             }
         }, {
-            path: '/post-review',
-            name: 'post-review-page',
-            component: () => import('@/components/page/post-review-page'),
+            path: '/new-review',
+            name: 'new-review-page',
+            component: () => import('@/components/page/new-review-page'),
             meta: {
                 title: '发表评测'
             }
@@ -81,6 +81,13 @@ export default new Router({
             component: () => import('@/components/page/board-page'),
             meta: {
                 title: '论坛'
+            }
+        }, {
+            path: '/new-post/:id',
+            name: 'new-post-page',
+            component: () => import('@/components/page/new-post-page'),
+            meta: {
+                title: '发表帖子'
             }
         }, {
             path: '/posts/:id',
