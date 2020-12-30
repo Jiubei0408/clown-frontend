@@ -118,7 +118,7 @@
                              :current-page.sync="postPageID" :page-count="postMaxPageID"/>
               <div class="new-post" style="float: right"
                    @click="$router.push('/new-post/'+$route.params.id)">
-                发布新帖
+                发表新帖
               </div>
             </div>
           </el-row>
@@ -299,7 +299,7 @@ export default {
 .text-intro {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 5;
+  -webkit-line-clamp: 10;
   overflow: hidden;
 }
 
