@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="nav-wrap">
-      <div class="new-information" @click="$router.push('/new-information')">
+      <div
+          v-if="$store.state.user.permission === 1"
+          class="new-information" @click="$router.push('/new-information')">
         <i class="el-icon-edit"/>
         <p style="margin-left: 10px">发布资讯</p>
       </div>
