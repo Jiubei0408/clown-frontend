@@ -171,7 +171,7 @@ export default {
           this.$message.error('请上传评测图片')
           return false
         }
-        if(this.form.review_content === ''){
+        if (this.form.review_content === '') {
           this.$message.error('请填写评测内容')
           return false
         }
@@ -198,6 +198,11 @@ export default {
     if (!this.$store.state.user.id) {
       this.$message.error('请先登录')
       this.$router.push('/login')
+      return
+    }
+    if (this.$store.state.user.permission !== 1) {
+      this.$message.error('您不是管理员')
+      this.$router.go(-1)
       return
     }
     this.getAllGames()
