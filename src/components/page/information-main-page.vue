@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="infinite-list"
+       v-infinite-scroll="loadMore" infinite-scroll-immediate="false"
+       :infinite-scroll-disabled="!hasMore">
     <div class="nav-wrap">
       <div
           v-if="$store.state.user.permission === 1"
@@ -24,9 +26,7 @@
           </div>
         </el-carousel-item>
       </el-carousel>
-      <div class="infinite-list horizontal-center" style="overflow: auto; width: 80%; min-height: 100%;"
-           v-infinite-scroll="loadMore" infinite-scroll-immediate="false"
-           infinite-scroll-disabled="!hasMore()">
+      <div class="horizontal-center" style="overflow: auto; width: 80%">
         <div class="infinite-list-item info-wrap"
              v-for="info of information" :key="info.information_id"
              @click="$router.push('/information/' + info.information_id)">
@@ -37,10 +37,11 @@
             <p class="info-time"> {{ info.release_date }}</p>
           </div>
         </div>
-        <div style="margin-top: 20px">
-          <p v-if="loading">加载中...</p>
-          <p v-if="!hasMore">没有更多了</p>
-        </div>
+      </div>
+      <div style="margin-top: 20px">
+        <p v-if="loading">加载中...</p>
+        <p v-if="!hasMore">没有更多了</p>
+        <p v-if="!loading && hasMore">滚动加载更多...</p>
       </div>
     </div>
   </div>
@@ -151,7 +152,7 @@ export default {
   box-sizing: border-box;
 }
 
-.new-information{
+.new-information {
   display: flex;
   justify-content: center;
   align-items: center;
