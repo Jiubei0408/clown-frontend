@@ -1,5 +1,10 @@
 <template>
   <div class="main-wrap">
+    <div class="delete-info" v-if="$store.state.user.permission === 1"
+         @click="delInfo">
+      <i class="el-icon-delete" style="font-size: 40px; color: #f5cf8b"/>
+      <p style="margin-top: 10px; color: #8694c9">删除资讯</p>
+    </div>
     <div class="game-meta">
       <p class="game-name">{{ information.game_name }}</p>
       <el-link :underline="false" @click="$router.push('/game/' + information.game_id)">游戏详情</el-link>
@@ -32,6 +37,22 @@ export default {
         if (resp.data.code === 200) this.information = resp.data.data
         else this.$message.error(this.resp.data.message)
       })
+    },
+    delInfo() {
+      this.$confirm('确认删除此条资讯吗', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.post(this.$store.state.api + '/admin/information/delete', {
+          information_id: parseInt(this.$route.params.id)
+        }).then(resp => {
+          if (resp.data.code === 200) {
+            this.$message.success('删除成功')
+            this.$router.push('/information')
+          } else this.$message.error(resp.data.message)
+        })
+      })
     }
   },
   created() {
@@ -52,16 +73,34 @@ export default {
   margin-top: 20px;
 }
 
+.delete-info {
+  position: absolute;
+  left: -150px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #31393c;
+  cursor: pointer;
+}
+
 .game-meta {
   display: flex;
   align-items: center;
 }
 
-.game-meta > *:not(:first-child){
+.game-meta > *:not(:first-child) {
   margin-left: 20px;
 }
 
-.game-meta a{
+.game-meta a {
   font-size: 20px;
 }
 
@@ -77,7 +116,7 @@ export default {
   font-weight: bold;
 }
 
-.time{
+.time {
   font-size: 20px;
   color: #c71818;
 }
