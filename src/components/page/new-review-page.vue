@@ -171,6 +171,10 @@ export default {
           this.$message.error('请上传评测图片')
           return false
         }
+        if(this.form.review_content === ''){
+          this.$message.error('请填写评测内容')
+          return false
+        }
         this.$http.post(this.$store.state.api + '/review/postReview', this.form)
             .then(resp => {
               if (resp.data.code === 200) {

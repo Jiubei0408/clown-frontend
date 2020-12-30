@@ -142,6 +142,10 @@ export default {
           this.$message.error('请完善信息')
           return false
         }
+        if(this.form.post_content === ''){
+          this.$message.error('请填写帖子内容')
+          return false
+        }
         this.$http.post(this.$store.state.api + '/board/submitPost', this.form)
             .then(resp => {
               if (resp.data.code === 200) {
