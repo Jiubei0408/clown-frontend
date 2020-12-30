@@ -369,6 +369,10 @@ export default {
   background: #ffefd4 !important;
 }
 
+/deep/ .el-pagination__jump{
+  color: #ecdbbc;
+}
+
 /deep/ .el-col {
   height: 100%;
 }
