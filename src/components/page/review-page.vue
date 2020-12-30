@@ -1,5 +1,10 @@
 <template>
   <div class="main-wrap">
+    <div class="delete-review" v-if="$store.state.user.permission === 1"
+         @click="delReview">
+      <i class="el-icon-delete" style="font-size: 40px; color: #f5cf8b"/>
+      <p style="margin-top: 10px; color: #8694c9">删除测评</p>
+    </div>
     <div class="circle rate">
       <p>{{ review.review_score !== undefined ? review.review_score.toFixed(1) : '' }}</p>
     </div>
@@ -41,6 +46,22 @@ export default {
         if (resp.data.code === 200) this.review = resp.data.data
         else this.$message.error(this.resp.data.message)
       })
+    },
+    delReview() {
+      this.$confirm('确认删除此条评测吗', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.post(this.$store.state.api + '/admin/review/delete', {
+          review_id: parseInt(this.$route.params.id)
+        }).then(resp => {
+          if (resp.data.code === 200) {
+            this.$message.success('删除成功')
+            this.$router.push('/review')
+          } else this.$message.error(resp.data.message)
+        })
+      })
     }
   },
   created() {
@@ -55,6 +76,26 @@ export default {
   width: 1200px;
   margin: 20px auto;
   text-align: left;
+  padding: 0 80px;
+  box-sizing: border-box;
+}
+
+.delete-review {
+  position: absolute;
+  left: -100px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: #31393c;
+  cursor: pointer;
 }
 
 .main-wrap *:not(:first-child) {
@@ -64,7 +105,7 @@ export default {
 .rate {
   position: absolute;
   top: 50px;
-  left: 850px;
+  left: 1000px;
   width: 100px;
   height: 100px;
   line-height: 100px;
