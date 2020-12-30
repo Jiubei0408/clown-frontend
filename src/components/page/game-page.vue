@@ -84,9 +84,8 @@ export default {
   },
   methods: {
     toHTML(str) {
-      if (typeof str === 'string'){
-        console.log(str)
-        return str.replace(/[\r\n]/g, "<br/>")}
+      if (typeof str === 'string')
+        return str.replace(/[\r\n]+/g, "<br/>")
       return ''
     },
     getData() {

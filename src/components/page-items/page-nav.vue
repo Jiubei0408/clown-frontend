@@ -13,7 +13,7 @@
         <span @click="goto('/board')">论坛</span>
         <span @click="goto('/review')">测评</span>
         <span @click="goto('/information')">资讯</span>
-        <span @click="goto('/rank')">榜单</span>
+        <span @click="goto('/ranklist')">榜单</span>
       </div>
       <div class="vertical-center" style="float: right;">
         <template v-if="!$store.state.user.id">

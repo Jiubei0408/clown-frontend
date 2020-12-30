@@ -76,6 +76,13 @@ export default new Router({
                 title: '发布资讯'
             }
         }, {
+            path: '/ranklist',
+            name: 'ranklist-page',
+            component: () => import('@/components/page/ranklist-page'),
+            meta: {
+                title: '榜单'
+            }
+        }, {
             path: '/game/:id',
             name: 'game-page',
             component: () => import('@/components/page/game-page'),
