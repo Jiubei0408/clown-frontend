@@ -1,6 +1,10 @@
 <template>
   <div>
     <div class="nav-wrap">
+      <div class="new-information" @click="$router.push('/new-information')">
+        <i class="el-icon-edit"/>
+        <p style="margin-left: 10px">发布资讯</p>
+      </div>
       <div class="nav-game-name" v-for="game of followedGames" :key="game.id"
            @click="switchGame(game.id)">
         {{ game.name }}
@@ -141,6 +145,21 @@ export default {
   width: 200px;
   height: 100%;
   background-color: #2b2a49;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.new-information{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  border-radius: 15px;
+  background-color: #4492cd;
+  color: #ecdbbc;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
   padding: 20px;
   box-sizing: border-box;
 }

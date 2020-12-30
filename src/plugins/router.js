@@ -69,6 +69,13 @@ export default new Router({
                 title: '资讯主页'
             }
         }, {
+            path: '/new-information',
+            name: 'new-information-page',
+            component: () => import('@/components/page/new-information-page'),
+            meta: {
+                title: '发布资讯'
+            }
+        }, {
             path: '/game/:id',
             name: 'game-page',
             component: () => import('@/components/page/game-page'),
