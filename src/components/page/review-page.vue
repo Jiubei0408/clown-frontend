@@ -4,7 +4,7 @@
       <p>{{ review.review_score !== undefined ? review.review_score.toFixed(1) : '' }}</p>
     </div>
     <p class="game-name">{{ review.game_name }}</p>
-    <p class="title">{{ review.review_title }}</p>
+    <p class="title" :title="review.review_title">{{ review.review_title }}</p>
     <div class="review-meta">
       <el-image class="circle avatar" :src="review.user_avatar">
         <template slot="error">
@@ -82,6 +82,11 @@ export default {
 }
 
 .title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  max-width: 800px;
   font-size: 40px;
   font-weight: bold;
 }
