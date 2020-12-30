@@ -20,7 +20,7 @@
             </el-button>
             <div class="vote" slot="reference">
               <div class="vertical-center">
-                <p>{{ game.game_avg_score ? game.game_avg_score.toFixed(1) : '' }}</p>
+                <p>{{ game.game_avg_score !== undefined ? game.game_avg_score.toFixed(1) : '' }}</p>
                 <p style="font-size: 15px; margin-top: 15px">{{ game.game_score_cnt }}人参与评分</p>
               </div>
             </div>

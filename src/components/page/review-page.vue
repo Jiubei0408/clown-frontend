@@ -1,7 +1,7 @@
 <template>
   <div class="main-wrap">
     <div class="circle rate">
-      <p>{{ review.review_score ? review.review_score.toFixed(1) : '' }}</p>
+      <p>{{ review.review_score !== undefined ? review.review_score.toFixed(1) : '' }}</p>
     </div>
     <p class="game-name">{{ review.game_name }}</p>
     <p class="title">{{ review.review_title }}</p>
