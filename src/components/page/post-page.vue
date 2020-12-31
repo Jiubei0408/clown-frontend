@@ -352,8 +352,15 @@ export default {
 }
 
 .floor {
+  min-width: 1200px;
+  width: 70%;
+  margin-left: 10%;
+  margin-right: 20%;
   height: fit-content;
   min-height: 200px;
+}
+
+.floor .right-wrap {
   border-bottom: 3px solid #ecdbbc;
 }
 
