@@ -2,7 +2,7 @@
   <div class="main-wrap" v-loading="loading">
     <el-row style="height: 100px">
       <el-col class="left-wrap">
-        <div class="game-name">
+        <div class="game-name" style="cursor: pointer" @click="$router.push('/board/' + post.board_id)">
           <p :title="post.board_name">{{ post.board_name }}论坛</p>
         </div>
       </el-col>
