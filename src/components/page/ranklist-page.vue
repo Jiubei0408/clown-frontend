@@ -1,6 +1,6 @@
 <template>
   <div style="background-color: #1f1d33;" :style="wrapStyle">
-    <div class="right-wrap" v-if="gameData !== null && gameData !== undefined">
+    <div class="right-wrap" style="z-index: 100" v-if="gameData !== null && gameData !== undefined">
       <p class="rate">{{ gameData.game_score.toFixed(1) }}</p>
       <p class="game-name" :title="gameData.game_name">{{ gameData.game_name }}</p>
       <p class="game-intro" v-html="toHTML(gameData.game_introduction)"></p>
@@ -114,6 +114,11 @@ export default {
     }
   },
   created() {
+    if(!this.$store.state.user.id){
+      this.$message.error('请先登录')
+      this.$router.push('/login')
+      return
+    }
     this.switchType(0)
   }
 }
