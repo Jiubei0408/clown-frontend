@@ -19,7 +19,7 @@
             <div v-for="i in Math.min(reviews.length, information.length)" :key="i">
               <div style="display: flex; justify-content: space-between">
                 <div class="content" style="width: 45%"
-                     @click="$router.push('/review/' + information[i - 1].id)">
+                     @click="$router.push('/review/' + reviews[i - 1].id)">
                   <el-image class="image" :src="reviews[i - 1].imageSrc"></el-image>
                   <p class="title">{{ reviews[i - 1].title }}</p>
                   <p class="brief">{{ reviews[i - 1].brief }}</p>
@@ -33,7 +33,7 @@
                   <p class="time">{{ information[i - 1].time }}</p>
                 </div>
               </div>
-              <el-divider v-if="i !== reviews.length"/>
+              <el-divider v-if="i !== Math.min(reviews.length, information.length)"/>
             </div>
           </div>
         </el-tab-pane>

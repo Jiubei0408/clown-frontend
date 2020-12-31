@@ -110,6 +110,9 @@ export default new Router({
             meta: {
                 title: '帖子'
             }
+        },{
+            path: '/posts/:id',
+            redirect: '/posts/:id/1'
         }, {
             path: '/review/:id',
             name: 'review-page',
