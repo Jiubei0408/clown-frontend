@@ -1,5 +1,19 @@
 <template>
   <div style="background-color: #1f1d33;" :style="wrapStyle">
+    <div class="right-wrap" v-if="gameData !== null && gameData !== undefined">
+      <p class="rate">{{ gameData.game_score.toFixed(1) }}</p>
+      <p class="game-name" :title="gameData.game_name">{{ gameData.game_name }}</p>
+      <p class="game-intro" v-html="toHTML(gameData.game_introduction)"></p>
+      <el-image class="game-image horizontal-center" :src="gameData.game_enter_src"/>
+      <div class="star horizontal-center" @click="switchStar">
+        <template v-if="gameData.is_star">已关注</template>
+        <template v-else>关注</template>
+      </div>
+      <div style="display: flex; justify-content: space-around; margin-top: 20px">
+        <div class="button" @click="$router.push('/board/' + gameData.game_id)">进入论坛</div>
+        <div class="button" @click="$router.push('/game/' + gameData.game_id)">进入简介</div>
+      </div>
+    </div>
     <div class="main-wrap horizontal-center">
       <div class="left-wrap">
         <div style="display: flex; justify-content: center; padding: 20px 0">
@@ -25,20 +39,6 @@
               </el-tag>
             </div>
           </div>
-        </div>
-      </div>
-      <div class="right-wrap" v-if="gameData !== null && gameData !== undefined">
-        <p class="rate">{{ gameData.game_score.toFixed(1) }}</p>
-        <p class="game-name" :title="gameData.game_name">{{ gameData.game_name }}</p>
-        <p class="game-intro" v-html="toHTML(gameData.game_introduction)"></p>
-        <el-image class="game-image horizontal-center" :src="gameData.game_enter_src"/>
-        <div class="star horizontal-center" @click="switchStar">
-          <template v-if="gameData.is_star">已关注</template>
-          <template v-else>关注</template>
-        </div>
-        <div style="display: flex; justify-content: space-around; margin-top: 20px">
-          <div class="button" @click="$router.push('/board/' + gameData.game_id)">进入论坛</div>
-          <div class="button" @click="$router.push('/game/' + gameData.game_id)">进入简介</div>
         </div>
       </div>
       <el-pagination background style="margin-top: 20px" :current-page.sync="pageID" :page-count="maxPageID"
@@ -135,8 +135,8 @@ export default {
 
 .right-wrap {
   position: fixed;
-  top: 50px;
-  left: calc(700px + 20px);
+  top: 110px;
+  left: calc((100% - 1200px) / 2 + 700px + 20px);
   padding: 20px;
   box-sizing: border-box;
   width: calc(500px - 20px);
