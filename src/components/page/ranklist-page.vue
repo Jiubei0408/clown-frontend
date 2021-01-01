@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: #1f1d33;" :style="wrapStyle" v-if="refreshing">
+  <div style="background-color: #1f1d33;" :style="wrapStyle" v-if="!refreshing">
     <div class="right-wrap" style="z-index: 100" v-if="gameData !== null && gameData !== undefined">
       <p class="rate">{{ gameData.game_score.toFixed(1) }}</p>
       <p class="game-name" :title="gameData.game_name">{{ gameData.game_name }}</p>
