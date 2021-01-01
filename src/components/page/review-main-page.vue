@@ -1,7 +1,7 @@
 <template>
   <div style="min-width: 1000px">
     <div class="wrap-add-review"
-         v-if="this.$store.state.user.permission === 1"
+         v-if="this.$store.state.user"
          @click="$router.push('/new-review')">
       <el-image style="width: 50px; height: 50px" src="logo-pencil.png"/>
       <p style="margin-left: 10px">发表测评</p>
