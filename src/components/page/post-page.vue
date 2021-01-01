@@ -33,6 +33,7 @@
         <el-col class="right-wrap">
           <mavon-editor :value="post.release_content.release_content"
                         :boxShadow="false"
+                        class="md-view"
                         previewBackground="#ffffff" :toolbarsFlag="false" :subfield="false"
                         defaultOpen="preview"/>
           <div class="floor-meta">
@@ -57,6 +58,7 @@
         <el-col class="right-wrap">
           <mavon-editor :value="comment.comment_content"
                         :boxShadow="false"
+                        class="md-view"
                         previewBackground="#ffffff" :toolbarsFlag="false" :subfield="false"
                         defaultOpen="preview"/>
           <div class="floor-meta">
@@ -438,6 +440,10 @@ export default {
 
 .reply:first-child {
   border-top: 1px solid lightgray;
+}
+
+.md-view {
+  max-width: 1200px;
 }
 
 .editor {
