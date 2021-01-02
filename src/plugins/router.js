@@ -110,7 +110,14 @@ export default new Router({
             meta: {
                 title: '帖子'
             }
-        },{
+        }, {
+            path: '/modifyGame/:id',
+            name: 'modify-game-page',
+            component: () => import('@/components/page/modify-game-page'),
+            meta: {
+                title: '修改游戏'
+            }
+        }, {
             path: '/posts/:id',
             redirect: '/posts/:id/1'
         }, {

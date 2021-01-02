@@ -13,7 +13,12 @@
           </div>
         </el-col>
         <el-col :span="20">
-          <div class="card"/>
+          <div class="card" style="display: flex">
+            <template v-if="$store.state.user.permission === 1">
+              <div class="button" @click="delGame">删除此游戏</div>
+              <div class="button" @click="$router.push('/modifyGame/' + $route.params.id)">修改此游戏</div>
+            </template>
+          </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
@@ -151,6 +156,19 @@ export default {
     }
   },
   methods: {
+    delGame() {
+      this.$confirm('确定要删除此游戏吗？', '提示',)
+          .then(() => {
+            this.$http.post(this.$store.state.api + '/admin/game/delete', {
+              game_id: parseInt(this.$route.params.id)
+            }).then(resp => {
+              if(resp.data.code === 200){
+                this.$message.success('操作成功')
+                this.$router.push('/board')
+              }else this.$message.error(resp.data.message)
+            })
+          })
+    },
     getHotBoards() {
       this.$http.post(this.$store.state.api + '/board/hot')
           .then(resp => {
@@ -342,6 +360,22 @@ export default {
   border-radius: 10px;
   background-color: #ecdbbc;
   cursor: pointer;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  background-color: #4e4d7c;
+}
+
+.button:not(:first-child) {
+  margin-left: 20px;
 }
 
 /deep/ .post-table-row, /deep/ .post-table-row th, /deep/ .post-table-row td {

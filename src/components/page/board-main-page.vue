@@ -13,7 +13,11 @@
           </div>
         </el-col>
         <el-col style="width: calc(100% - 300px)">
-          <div class="card"></div>
+          <div class="card">
+            <template v-if="$store.state.user.permission === 1">
+              <div class="button" @click="$router.push('/modifyGame/-1')">添加新游戏</div>
+            </template>
+          </div>
         </el-col>
       </el-row>
       <el-row :gutter="20">
@@ -243,6 +247,22 @@ export default {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  border-radius: 15px;
+  font-size: 25px;
+  cursor: pointer;
+  background-color: #4e4d7c;
+}
+
+.button:not(:first-child){
+  margin-left: 20px;
 }
 
 /deep/ .el-col {
