@@ -200,11 +200,6 @@ export default {
       this.$router.push('/login')
       return
     }
-    if (this.$store.state.user.permission !== 1) {
-      this.$message.error('您不是管理员')
-      this.$router.go(-1)
-      return
-    }
     this.getAllGames()
   }
 }
