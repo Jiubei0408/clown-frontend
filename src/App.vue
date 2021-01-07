@@ -22,12 +22,14 @@ export default {
   provide() {
     return {
       reload: this.reload,
-      scrollToTop: this.scrollToTop
+      scrollToTop: this.scrollToTop,
+      getScrollWrap: this.getScrollWrap
     }
   },
   data() {
     return {
-      reloading: false
+      reloading: false,
+      scrollWrap_: null
     }
   },
   methods: {
@@ -40,6 +42,7 @@ export default {
       this.$store.commit('saveMainBoxHeight', this.$refs.pageMainBox.style.minHeight)
       this.$refs.pageBox.style.height = clientHeight + 'px'
       this.$refs.pageBox.style.widows = clientWidth + 'px'
+      this.scrollWrap_ = this.$refs.scrollbar.$refs['wrap']
     },
     reload() {
       this.reloading = true;
@@ -49,7 +52,10 @@ export default {
     },
     scrollToTop() {
       window.scrollTo({behavior: 'smooth', top: 0})
-      this.$refs.scrollbar.$refs['wrap'].scrollTo({behavior: 'smooth', top: 0})
+      if (this.scrollWrap) this.scrollWrap.scrollTo({behavior: 'smooth', top: 0})
+    },
+    getScrollWrap() {
+      return this.scrollWrap_
     }
   },
   mounted() {

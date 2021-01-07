@@ -1,6 +1,7 @@
 <template>
   <div style="background-color: #1f1d33;" :style="wrapStyle" v-if="!refreshing">
-    <div class="right-wrap" style="z-index: 100" v-if="gameData !== null && gameData !== undefined">
+    <div ref="floatWrap" class="right-wrap" :style="floatStyle" style="z-index: 100"
+         v-if="gameData !== null && gameData !== undefined">
       <p class="rate">{{ gameData.game_score.toFixed(1) }}</p>
       <p class="game-name" :title="gameData.game_name">{{ gameData.game_name }}</p>
       <p class="game-intro" v-html="toHTML(gameData.game_introduction)"></p>
@@ -15,7 +16,7 @@
       </div>
     </div>
     <div class="main-wrap horizontal-center">
-      <div class="left-wrap">
+      <div class="left-wrap" ref="leftWrap">
         <div style="display: flex; justify-content: center; padding: 20px 0">
           <div class="button" :class="type===0?'is-active':''"
                @click="switchType(0)">
@@ -50,10 +51,16 @@
 <script>
 export default {
   name: "ranklist-page",
+  inject: ['getScrollWrap'],
   computed: {
     wrapStyle() {
       return {
         minHeight: this.$store.state.mainBoxHeight,
+      }
+    },
+    floatStyle() {
+      return {
+        top: this.floatTop + 'px'
       }
     }
   },
@@ -64,7 +71,8 @@ export default {
       gameData: null,
       pageID: 1,
       maxPageID: 1,
-      refreshing: false
+      refreshing: false,
+      floatTop: 110
     }
   },
   methods: {
@@ -116,6 +124,13 @@ export default {
           this.gameData.is_star = resp.data.data.isStar
         } else this.$message.error(resp.data.message)
       })
+    },
+    onScroll() {
+      let floatWrap = this.$refs.floatWrap
+      console.log(this.getScrollWrap().scrollTop)
+      let leftWrap = this.$refs.leftWrap
+      console.log(this.getScrollWrap().scrollTop, leftWrap.clientHeight, leftWrap.clientHeight - floatWrap.clientHeight)
+      this.floatTop = Math.min(110, leftWrap.clientHeight - floatWrap.clientHeight + 110 - this.getScrollWrap().scrollTop)
     }
   },
   created() {
@@ -125,6 +140,10 @@ export default {
       return
     }
     this.switchType(0)
+    window.addEventListener('scroll', this.onScroll, true)
+  },
+  destroyed() {
+    window.removeEventListener('scroll', this.onScroll, true)
   }
 }
 </script>
