@@ -134,6 +134,13 @@ export default new Router({
             meta: {
                 title: '资讯'
             }
+        }, {
+            path: '/admin',
+            name: 'admin-page',
+            component: () => import('@/components/page/admin-page'),
+            meta: {
+                title: '管理'
+            }
         }, {path: '*', redirect: '/404'}, {
             path: '/404',
             name: 'error404-page',

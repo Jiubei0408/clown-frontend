@@ -9,6 +9,7 @@
       <el-col class="right-wrap">
         <div class="title">
           <p :title="post.post_title">[{{ post.post_type }}] {{ post.post_title }}</p>
+          <div class="admin-button" @click="report(1)">举报</div>
           <template v-if="$store.state.user.permission === 1">
             <div class="admin-button" @click="distillatePost">设为精华</div>
             <div class="admin-button" @click="deletePost">删除</div>
@@ -62,7 +63,11 @@
                         previewBackground="#ffffff" :toolbarsFlag="false" :subfield="false"
                         defaultOpen="preview"/>
           <div class="floor-meta">
-            <el-link class="thumb" :underline="false" @click="switchThumb(comment.comment_id)">
+            <el-link :underline="false" @click="report(comment.floor)">举报</el-link>
+            <template v-if="$store.state.user.permission === 1">
+              <el-link :underline="false" @click="deleteComment(comment)">删除</el-link>
+            </template>
+            <el-link :underline="false" @click="switchThumb(comment.comment_id)">
               <template v-if="comment.are_you_thumbed">已点赞:</template>
               <template v-else>点赞:</template>
               {{ comment.thumb_count }}
@@ -274,6 +279,42 @@ export default {
           if (resp.data.code === 200) {
             this.$message.success('操作成功')
             this.$router.push('/')
+          } else this.$message.error(resp.data.message)
+        })
+      })
+    },
+    deleteComment(comment){
+      this.$confirm(`要删除这个楼层吗？`, '确认', {
+        type: 'warning'
+      }).then(() => {
+        this.$http.post(this.$store.state.api + '/admin/board/deleteComment', {
+          post_id: parseInt(this.$route.params.id),
+          floor: comment.floor
+        }).then(resp => {
+          if (resp.data.code === 200) {
+            this.$message.success('删除成功')
+          } else this.$message.error(resp.data.message)
+        })
+      })
+    },
+    report(floor){
+      this.$prompt('填写举报理由', '举报', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: '',
+        inputType: 'textarea',
+        inputValidator(value) {
+          if (value.length > 50) return '您输入的太长了'
+          return true
+        },
+      }).then(({value}) => {
+        this.$http.post(this.$store.state.api + '/admin/board/reportPost', {
+          post_id: parseInt(this.$route.params.id),
+          floor: floor,
+          content: value
+        }).then(resp => {
+          if (resp.data.code === 200) {
+            this.$message.success(resp.data.message)
           } else this.$message.error(resp.data.message)
         })
       })
