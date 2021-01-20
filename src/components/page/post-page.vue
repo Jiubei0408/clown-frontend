@@ -298,7 +298,7 @@ export default {
       })
     },
     report(floor){
-      this.$prompt('填写举报理由', '举报', {
+      this.$prompt('填写举报理由(最多50个字符)', '举报', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         inputValue: '',

@@ -28,7 +28,7 @@
         </el-table-column>
         <el-table-column fixed="right" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="primary" plain @click="$message.error('施工中')">忽略</el-button>
+            <el-button size="mini" type="primary" plain @click="ignoreReport(scope.row)">忽略</el-button>
             <template v-if="scope.row.floor !== 1">
               <el-button size="mini" type="danger" plain @click="deleteComment(scope.row)">
                 删楼
@@ -49,6 +49,7 @@
 <script>
 export default {
   name: "admin-page",
+  inject: ['reload'],
   data() {
     return {
       tableData: [],
@@ -85,6 +86,21 @@ export default {
         }).then(resp => {
           if (resp.data.code === 200) {
             this.$message.success('删除成功')
+          } else this.$message.error(resp.data.message)
+        })
+      })
+    },
+    ignoreReport(row) {
+      this.$confirm(`确定忽略吗？`, '确认', {
+        type: 'warning'
+      }).then(() => {
+        this.$http.post(this.$store.state.api + '/admin/board/ignoreReport', {
+          post_id: row.post_id,
+          floor: row.floor
+        }).then(resp => {
+          if (resp.data.code === 200) {
+            this.$message.success('已忽略')
+            this.reload()
           } else this.$message.error(resp.data.message)
         })
       })
